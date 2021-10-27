@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Infrastructure - OPIDDaily</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">OPIDDaily</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Background</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">Infrastructure</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../Database/" class="nav-link">Database</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../Implementation/" class="nav-link">Implementation</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../Checks/" class="nav-link">Checks</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href=".." class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../Database/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#infrastructure" class="nav-link">Infrastructure</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#hosting-environments" class="nav-link">Hosting Environments</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#seo" class="nav-link">SEO</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#visual-studio-project" class="nav-link">Visual Studio Project</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#sql-server-express-and-ssms" class="nav-link">SQL Server Express and SSMS</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#preliminaries" class="nav-link">Preliminaries</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#initializing-the-database-for-a-clean-build" class="nav-link">Initializing the Database for a Clean Build</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-first-new-migration-for-heretoserve" class="nav-link">The First New Migration for HereToServe</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#configuring-iis" class="nav-link">Configuring IIS</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#git-for-windows" class="nav-link">Git for Windows</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#github" class="nav-link">GitHub</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#appharbor" class="nav-link">AppHarbor</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-staging-and-training-versions-of-opiddaily" class="nav-link">The Staging and Training Versions of OPIDDaily</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#roslyn" class="nav-link">Roslyn</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#deployment" class="nav-link">Deployment</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#jqgrid" class="nav-link">jqGrid</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#elmah" class="nav-link">ELMAH</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#log4net" class="nav-link">log4net</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#mkdocs" class="nav-link">MkDocs</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="infrastructure">Infrastructure</h1>
+<p>The infrastructure of project OPIDDaily refers to the tools and technologies used to develop it, exclusive of the implementation itself. This
+section will be useful to a developer wanting to maintain and further develop OPIDDaily. It describes both the desktop development environment and the
+AppHarbor deployment environment for the web application OPIDDaily.</p>
+<h2 id="hosting-environments">Hosting Environments</h2>
+<p>There are 4 hosting environments for OPIDDaily: desktop, training, staging and production. They differ in the database connection string used by each.
+The connection string is configured as the value of variable <strong>OpidDailyConnectionString</strong> in the <code>&lt;connectionStrings&gt;</code> section of
+Web.config. The static value configured there is used by the desktop environment. The static value is overwritten by injection (at AppHarbor)
+when OPIDDaily is deployed to create a training, staging or production release. The transformation files Web.Staging.config and Web.Release.config
+play a role in these deployments. The staging deployment at AppHarbor (called stagedaily) has its Environment variable set to Staging to force
+Web.Staging.config to be used upon deployment. This is done in the Settings section of the deployed application at AppHarbor. (When Web.Staging.config
+was created, it was necessary to set its build action to Content in Visual Studio to include it in the build at AppHarbor. The same thing happened
+when Web.Training.config was created.)  The production deployment at AppHarbor has its Environment variable set to Release by default. This causes
+Web.Release.config to be used upon deployment.</p>
+<p>The training release was the last release created. It was created by use of the Configuration Manager under the Visual Studio Build menu. In the
+<code>Active solution configuration</code> dropdown <code>&lt;New&gt;</code> was selected and Training was created with settings copied from the Staging configuration. Then
+<code>Add Config Transform</code> was selected from the context menu of Web.config. (This item is grayed out until a new configuration has been created.) This
+automatically added file Web.Training.config. The <code>&lt;appSettings&gt;</code> section of Web.Staging.config was copied to Web.Training.config.</p>
+<h2 id="seo">SEO</h2>
+<p>OPIDDaily is a password protected application that is not intended to be discoverable by search engines. To prevent this it includes
+the following robots.txt file</p>
+<pre><code> User-agent:*
+ Disallow:/
+</code></pre>
+<p>This directs all search engines to ignore the entire site.</p>
+<h2 id="visual-studio-project">Visual Studio Project</h2>
+<p>To check out application OPIDDaily from GitHub into Visual Studio 2019 (Community Edition), use the Visual
+Studio capability to clone the repository</p>
+<pre><code> https://tmhsplb@appharbor.com/heretoserve.git
+</code></pre>
+<p>into a local folder after being made a collaborator on the project. Being a collaborator is necessary in order to commit changes to the GitHub repository.</p>
+<p>Instructions for how to clone into Visual Studio were found on [this page]
+(https://stackoverflow.com/questions/65082592/how-to-clone-a-specific-branch-from-new-git-visual-studio-2019-not-from-command). Note that the code base is stored in the master branch of the heretoserve repository, but
+the cloning procedure seems to clone the main branch into Visual Studio instead. In fact, it cloned all
+branches and is simply focused on the main branch. The point is that it is necessary to use the Visual Studio
+interface to switch to the master branch. Read the StackOverflow page carefully! There is no guarantee that
+the cloning procedure described will work in future release of Visual Studio. Just be reassured
+that there is a way to clone a GitHub repository into Visual Studio.</p>
+<p>The Visual Studio project representing application OPIDDaily defines a role-based system. It was developed using the ASP.NET
+Identity 2.0 framework. A sample ASP.NET Identity 2.0 project was developed by Syed Shanu and described in the
+<a href="https://www.codeproject.com/Articles/1075134/ASP-NET-MVC-Security-And-Creating-User-Role">excellent CodeProject article ASP.NET MVC Security and Creating User Role</a>.</p>
+<p>The sample project uses the Visual Studio MVC5 project template and makes use of Katana OWIN middleware for user
+authentication. The use of Katana is
+built into the ASP.NET Identity 2.0 provider used by the project template, as is explained in the CodeProject article.</p>
+<p>The OPIDDaily application was built with information taken from this article as well as the technique for maintaining 2 data
+contexts described in<br />
+<a href="https://app.pluralsight.com/player?author=scott-allen&amp;name=aspdotnet-mvc5-fundamentals-m6-ef6&amp;mode=live&amp;clip=1&amp;course=aspdotnet-mvc5-fundamentals">Scott Allen's Pluralsight video</a>.</p>
+<p>On the Properties page of the Visual Studio project, remember to select Local IIS as the server and click the Create Virtual Directory button to set</p>
+<pre><code> http://localhost/OpidDaily
+</code></pre>
+<p>as the Project Url. These two actions create an application called OpidDaily under the Default Web Site in IIS and enable project OPIDDaily to be run
+in a desktop version of IIS under this Url. Without this, the desktop IIS cannot be used to host the application. See the section on configuring IIS
+below.</p>
+<p>New development in the OPIDDaily Visual Studio project will be done in the <strong>staging</strong> branch and deployed to the stagedaily
+application at AppHarbor.
+(See the section on Deployment.) After changes to the <strong>staging</strong> branch have been tested in the desktop environment, using
+the Visual Studio GitHub
+interface they will be committed and then pushed to the staging branch at GitHub. After changes have been tested, they will
+be merged into the
+<strong>master</strong> branch of the project and from there deployed to application OPIDDaily at Appharbor.</p>
+<p>When the codebase is installed on a developer's Visual Studio instance on his/her machine by cloning the GitHub repository
+<strong>OPIDDaily</strong>, the developer
+must use Visual Studio to create a <strong>staging</strong> branch and then rebase this branch onto <strong>origin/master</strong>. This will cause the
+remote changes to appear in
+the local <strong>staging</strong> branch.</p>
+<h2 id="sql-server-express-and-ssms">SQL Server Express and SSMS</h2>
+<p>The desktop version of OPIDDaily makes use of SQL Server Express to store information about clients. The database is managed by v18.0 of SQL
+Server Management Studio (SSMS). Visual Studio includes the ability to view an installed SQL Server Express database, but it is more convenient to have
+SQL Server Management Studio available for this purpose.  SQL Server Express and SSMS require separate (lengthy) downloads.</p>
+<p>The SQL Server Express database for OPIDDaily was created by executing the SQL query</p>
+<pre><code>create database OPIDDailyDB
+</code></pre>
+<p>executed inside of SSMS. With this database selected in SSMS, there are two SQL queries that need to be executed to enable IIS
+to talk to SQL Server Express. The first query is</p>
+<pre><code>       CREATE USER [NT AUTHORITY\NETWORK SERVICE]
+       FOR LOGIN [NT AUTHORITY\NETWORK SERVICE]
+       WITH DEFAULT_SCHEMA = dbo;
+</code></pre>
+<p>This query creates the database user NT AUTHORITY\NETWORK SERVICE. The second query is</p>
+<pre><code>      EXEC sp_addrolemember 'db_owner', 'NT AUTHORITY\NETWORK SERVICE'
+</code></pre>
+<p>This query grants user NT AUTHORITY\NETWORK SERVICE the necessary permissions to communicate with IIS. Finally, go into the security
+section of database OPIDDaily in SSMS. Expand Users and select the properties for user NT AUTHORITY\NETWORK SERVICE. Select Membership
+from the Select a page section of the dialog box and tick the checkbox for db_owner. Performing this final change will permit user
+NT AUTHORITY\NETWORK SERVICE to create tables in the database. This ability is necessary for the first the OPIDDaily application is
+run to enable it to automatically create the ASP.NET Identity tables in the database.</p>
+<p>Creating and configuring user NT AUTHORITY\NETWORK SERVICE does not need to be performed at AppHarbor in order to communicate with IIS.
+See below for information about the AppHarbor deployment of OPIDDaily.</p>
+<p>It is also necessary to change the application pool identity of application OPIDDaily running under IIS to NETWORKSERVICE. This is done
+to the application pool itself, not the application. See the section on configuring IIS.</p>
+<p>There is a bug in SSMS v18.0 that causes it to stop after launch; the splash screen will display and then SSMS will quit.
+<a href="https://dba.stackexchange.com/questions/238609/ssms-refuses-to-start">The fix for this</a> is to edit file ssms.exe.config found in folder</p>
+<pre><code>C:\\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE
+</code></pre>
+<p>and remove (or comment out) the line which has the text:</p>
+<pre><code>&lt;NgenBind_OptimizeNonGac enabled="1" /&gt;
+</code></pre>
+<p>This should be around line 38. Then restart SSMS.</p>
+<p>SSMS v18.0 does not have the capability to generate database diagrams. Previous versions of SSMS had this capability,
+but it was removed from v18.0. The capability has been added back to newer version of SSMS.</p>
+<p>SSMS can be used to connect to a remote database at AppHarbor. The credentials for the remote database can be discovered by
+clicking on the SQL Server add-on at AppHarbor and then following the <code>Go to SQL Server</code> link on the page that appears.</p>
+<p>When connecting through SSMS it is only necessary to use SQL Server Authentication and then supply the AppHarbor server name,
+login and password. SSMS will discover the database associated with these credentials. Do not supply the database name
+through the connection interface.</p>
+<h2 id="preliminaries">Preliminaries</h2>
+<p>Before running the program for the first time, make sure the database OPIDDailyDB has been created in SQL Server and, if
+running in the desktop environment, user NT AUTHORITY\NETWORK SERVICE has been created and configured. See the section SQL
+Server Express and SSMS above for instructions on how to do this.</p>
+<p>The CodeProject article (referenced in section Visual Studio Project) gives the Katana middleware code needed to cause the
+ASP.NET Identity tables to be created and the first user to be entered into them. This middleware code is found on the
+toplevel file Startup.cs. As specified on this file the first user is the SuperAdmin user, sa. When application OPIDDaily is
+run for the first time the ASP.NET Identity tables will be created when the middleware is executed. The user sa will then be
+found in table <strong>AspNetUsesrs</strong>. File Startup.cs is worth studying.</p>
+<p>Since the password for user sa is retrieved by Startup.cs from Web.config where it appears in clear text,
+this password should be changed in the deployed application as soon as possible. The Home page of the deployed application
+contains a Change Password button that can be used to change the sa password. (The Home page for users in each role also
+contains a Change Password button.)  </p>
+<h2 id="initializing-the-database-for-a-clean-build">Initializing the Database for a Clean Build</h2>
+<p>The Visual Studio project OPIDDaily is implemented using Version 6 of Enity Framework Code First. The project
+maintains 2 data contexts called IdentityDB and OpidDailyDB. The technique for establishing a
+single connection string over 2 data contexts is described in
+<a href="https://app.pluralsight.com/player?author=scott-allen&amp;name=aspdotnet-mvc5-fundamentals-m6-ef6&amp;mode=live&amp;clip=1&amp;course=aspdotnet-mvc5-fundamentals">Scott Allen's Pluralsight video</a>.</p>
+<p>Following the video, supporting 2 data contexts in application OPIDDaily was enabled by some manual scaffolding in the
+codebase. This scaffolding in the Visual Studio project for OPIDDaily consisted of creating a folder called DataContexts with
+two subfolders: IdentityMigrations and OPIDDailyMigrations. Also, a new folder called Entities was added to contain the
+classes defining the entities used by the solution.</p>
+<p>If you are building the database from a cloned copy then:</p>
+<ol>
+<li>
+<p>Go to http://localhost/HereToServe
+      This will cause the ASP.NET identity tables to be created. You will be able to login as sa.
+      But nothing else will work until all the other tables have been added. See step 2.</p>
+</li>
+<li>
+<p>Create the remaining tables from the Package Manager Console by running
+       PM&gt; update-database -ConfigurationTypeName OPIDDaily.DataContexts.OPIDDailyMigrations.Configuration
+      The cloned copy will already have DataContexts\OPIDDailyMigrations. So running the update-database
+      command will run all the migrations for context OPIDDaily.</p>
+</li>
+</ol>
+<p>Create the top level folder DataContexts and create class IdentityDB in this folder, as specified in Scott Allen's video.
+Note that it was found necessary to move the class ApplicationDbContext from file Models\IdentityModels.cs on the video to
+file DataContexts/IdentityDb.cs to make things work.</p>
+<p>The class AppStart/IdentityConfig will need to be modified in order for the application to compile. Replace the line</p>
+<pre><code> var manager = new ApplicationUserManager(new UserStore&lt;ApplicationUser&gt;(context.Get&lt;ApplicationDbContext&gt;()));
+</code></pre>
+<p>by</p>
+<pre><code>var manager = new ApplicationUserManager(new UserStore&lt;ApplicationUser&gt;(context.Get&lt;IdentityDB&gt;()));
+</code></pre>
+<p>The class AppStart/StartupAuth will also need to be modified. Replace the line</p>
+<pre><code>app.CreatePerOwinContext(ApplicationDbContext.Create);
+</code></pre>
+<p>by the line</p>
+<pre><code> app.CreatePerOwinContext(IdentityDB.Create);
+</code></pre>
+<p>This will invoke the method IdentityDB.Create at the proper time.</p>
+<p>Then run the PowerShell command</p>
+<pre><code>PM&gt; Enable-Migrations -ContextTypeName OPIDDaily.DataContexts.IdentityDB -MigrationsDirectory DataContexts\IdentityMigrations
+</code></pre>
+<p>This will create the file</p>
+<pre><code>DataContexts\IdentityMigrations\Configuration.cs
+</code></pre>
+<p>Next in method Configuration on this file set</p>
+<pre><code>AutomaticMigrationsEnabled = true;
+</code></pre>
+<p>to allow the ASP.NET Identity tables to be created when application OPIDDaily is run for the first time. Also add the line</p>
+<pre><code>ContextKey = "OPIDDaily.DataContexts.IdentityDB";
+</code></pre>
+<p>to method Configuration. A similar ContextKey declaration will be made in the Configuration method for the other data
+context. The ContextKey is used to distinguish between the two data contexts.</p>
+<p>Next run the Powershell command</p>
+<pre><code>   PM&gt; Enable-Migrations -ContextTypeName OPIDDaily.DataContexts.OpidDailyDB -MigrationsDirectory DataContexts\OPIDDailyMigrations
+</code></pre>
+<p>This will create file OPIDDailyMigrations/Configuration.cs. Edit this file to include the lines</p>
+<pre><code>  AutomaticMigrationsEnabled = true;
+  ContextKey = "OPIDDaily.DataContexts.OpidDailyDB";
+</code></pre>
+<p>in method Configuration. This will distinguish the OpidDaily data context from the IdentityDb data context defined
+above. It will enable the add-migration command to find code first changes. Without it all Up() and Down() methods creted by
+add-migration will be empty!</p>
+<p>Run the Powershell command</p>
+<pre><code>  PM&gt; add-migration -ConfigurationTypeName OPIDDaily.DataContexts.OPIDDailyMigrations.Configuration "InitialDB"
+</code></pre>
+<p>to create the migration containing all pre-defined tables. After running the commannd, inspect the InitialDB migration in
+folder OPIDDailyMigrations to see that all pre-defined tables are present. If the migration does not look correct, simply
+delete it before running the update-database. After verifying correctness, run the command</p>
+<pre><code> PM&gt; update-database -ConfigurationTypeName OPIDDaily.DataContexts.OPIDDailyMigrations.Configuration
+</code></pre>
+<p>to add these tables to the SQL database.</p>
+<p>After application OPIDDaily is run for the first time the database will contain not only the ASP.NET Identity table but also
+an entity framework table called _MigrationHistory. Entity Framework uses this table to record migrations. As a result of the
+creation of the ASP.NET Identity tables, a migration with MigrationId 201906051504117_InitialCreate was created in the
+_MigrationHistory table.</p>
+<p>Once a migration has been applied to the database by running an update-database command, the code in the
+Down() method of the migration must be run to back the migration out of the database. Read more about this on
+the Database tab.</p>
+<h2 id="the-first-new-migration-for-heretoserve">The First New Migration for HereToServe</h2>
+<p>The HereToServe application is a deployment of the OPIDDaily application under the application name HereToServe
+at AppHarbor. The HereToSeve application extends the OPIDDaily application by the inclusion of a gift cards feature.
+When starting work on extending the OPIDDaily codebase to create the HereToServe application the new
+table <strong>GiftCards</strong> was added to the OPIDDaily codebase via the commands</p>
+<pre><code>PM&gt; add-migration -ConfigurationTypeName OPIDDaily.DataContexts.OPIDDailyMigrations.Configuration "GiftCard"
+PM&gt; update-database -ConfigurationTypeName OPIDDaily.DataContexts.OPIDDailyMigrations.Configuration
+</code></pre>
+<p>Running these two commands accomplished the following:</p>
+<ul>
+<li>added a migration called GiftCard to folder DataContexts\OPIDDailyMigrations</li>
+<li>updated the __MigrationHistory table</li>
+<li>added table GiftCards to the desktop HereToServe database,</li>
+</ul>
+<p>Migrations cannot be handled directly by EF Code First at AppHarbor. It is necessary
+to use the Package Manager console (PM&gt;) inside Visual Studio to create a script file for the migration and then execute this
+script file in SSMS against the AppHarbor database. See the section Adding Migrations at AppHarbor via Script on the
+Database tab to see how thisis done. Importantly, this script includes the migration record that will be inserted into the
+__MigrationHistory table at AppHarbor. There is no other way to do this! Failure to do this will create an error at AppHarbor
+which says  </p>
+<pre><code>The model backing the OpidDailyDB context has changed since the database was created.
+</code></pre>
+<p>This is a fatal error reported by ELMAH.</p>
+<h2 id="configuring-iis">Configuring IIS</h2>
+<p>Development of the OPIDDaily application was performed under IIS in the development (desktop) environment. This
+was done so that the development environment would match the deployment environment at AppHarbor as closely as possible.</p>
+<p>The localhost application server, Internet Information Services (IIS), was not pre-installed on the localhost; however, it is
+part of the operating system that can easily be activated. To activate IIS, go to the Programs section of the Control Panel
+and turn on the IIS feature:</p>
+<pre><code>Programs &gt; Programs and Features &gt; Turn Windows features on or off &gt; Internet Information Services
+</code></pre>
+<p>After checking this box, expand it by clicking the plus sign (+) next to it and go to the section</p>
+<pre><code>World Wide Web Services &gt; Application Development Features
+</code></pre>
+<p>In this section, check the checkboxes for</p>
+<pre><code>    ASP
+    ASP.NET 3.5
+    ASP.NET 4.6
+</code></pre>
+<p>if they are not already checked. This will cause additional Application Pools to be made available to IIS.</p>
+<p>The OPIDDaily application is installed as an application under the Default Web Site in IIS as described in the section
+describing the Visual Studio Project. The Basic Settings dialog box for application OPIDDaily (accessible from the Actions
+  pane of IIS), will give the physical path to the folder containing the source code as</p>
+<pre><code>C:\VS2019Projects\OpidDaily\OpidDaily
+</code></pre>
+<p>This folder contains the project solution file, OPIDDaily.sln. Do not change it! Application OPIDDaily must be configured to
+use the application pool .NET v4.5. in the Basic Settings dialog box. (This application pool became available by enabling the
+features described above.)</p>
+<p>Finally, change the application identity of the selected application pool (.NET v4.5) to NetworkService. To do this,
+highlight Application Pools on the IIS Connections panel. This will cause the available application pools to appear in the
+IIS body panel. Highlight the .NET v4.5 application pool and then select Set Application Pool Defaults… to display a dialog
+box that will enable you to change the identity of the application pool. The dialog box
+is reachable either from the context menu of the highlighted application pool (under right mouse click) or from the Actions
+panel on the right of the IIS display.</p>
+<p>The dialog box contains a section labeled Process Model which contains an entry labeled Identity. Selecting the Identity
+entry adds an ellipsis next to the bold ApplicationPoolIdentity. Selecting the ellipsis brings up a dialog box with the pre-
+selected radio button Built-in account. Select NetworkService from the dropdown menu associated with this radio button. After
+approving this selection, the Identity column of the application pool .NET v4.5 will show NetworkService. See the section on
+SQL Server and SSMS for how to establish user NetworkService.</p>
+<h2 id="git-for-windows">Git for Windows</h2>
+<p>Visual Studio 2019 (Community Edition) comes with built-in support for GitHub. A new project can be added to Git source control on the desktop by simply
+selecting <code>Add to Source Control</code> from the context menu of the Solution file in the Solution Explorer. Once a project is under Git source control it can
+be added to a remote GitHub repository by using tools available through Visual Studio. However, a technique preferred by many developers is to use <a href="https://git-for-windows.github.io/">Git
+for Windows</a>. Git for Windows provides a BASH shell interface to GitHub which uses the same set of commands
+available at GitHub itself. Git for Windows integrates with Windows Explorer to allow a BASH shell to be opened on a project that has been added to a
+desktop Git repository. Simply point Windows Explorer at the folder containing the project solution file and select <code>Git BASH Here</code> from the context
+menu of the folder to open a Git for Windows BASH shell. As a first git command, try entering</p>
+<pre><code>git --version
+</code></pre>
+<p>in the shell. This will report the version of Git that has been installed by the download. After that simply execute Git commands from this shell window.
+Git for Windows also offers Git GUI, a graphical version of most Git command line functions. To open Git GUI simply select <code>Git GUI Here</code> from Windows
+Explorer.</p>
+<h2 id="github">GitHub</h2>
+<p>Application OPIDDaily is stored at GitHub as a repository under an account with the email address peter3418@ymail.com and account name tmhsplb.</p>
+<p>Only user tmhsplb can deploy directly to this repository. Any other user needing to deploy a version of OPIDDaily to this repository
+must be declared a collaborator on repository OPIDDaily by user tmhsplb. A collaborator is a user associated with a different account established at
+GitHub.  </p>
+<p>Git for Windows was used to create a remote to save to this GitHub account. The remote was created in the Git BASH shell by opening the shell on the
+folder which contains the OPIDDaily.sln file (folder <code>C:/VS2019Projects/OPIDDaily/OPIDDaily</code>) and issuing the command</p>
+<pre><code>git remote add origin https://github.com/tmhsplb/opiddaily.git
+</code></pre>
+<p>Creating this remote only needs to be done once, because Git for Windows stores the remote.</p>
+<p>To remove a remote use the command</p>
+<pre><code> git remote rm myremote
+</code></pre>
+<p>The need for this may arise if there was a typo in the creation of myremote.</p>
+<p>The HereToServe website was created by first cloning the codebase of OPID Daily and then saving the new code base in the HereToServe
+repository at github. This required removing the original remote for origin as follows:</p>
+<pre><code> git remote rm origin
+</code></pre>
+<p>After this, a new remote for origin was added:</p>
+<pre><code>git remote add origin https://github.com/tmhsplb/HereToServe.git
+</code></pre>
+<p>The initial codebase was saved to github through the Sync command under the Team Explorer tab in Visual Studio. The initial Sync inherited
+all the changes made to the cloned copy of opiddaily but this is not a problem.</p>
+<h2 id="appharbor">AppHarbor</h2>
+<p>AppHarbor (appharbor.com) is a Platform as a Service Provider which uses Amazon Web Services infrastructure for hosting applications and Git as a
+versioning tool. When an application is defined at AppHarbor, a Git repository is created to manage versions of the application's deployment.
+The OPIDDaily application is defined as an application at AppHarbor to create the production repository of the desktop application. The staging version
+of the desktop application is defined by a repository called stagedaily.</p>
+<p>The remote configured for OPIDDaily at AppHarbor is:</p>
+<pre><code>https://tmhsplb@appharbor.com/opiddaily.git
+</code></pre>
+<p>This remote is configured from a Windows Git BASH shell by the command</p>
+<pre><code>git remote add opiddaily https://tmhsplb@appharbor.com/opiddaily.git
+</code></pre>
+<p>After the remote is configured in the Git BASH shell, issuing the command</p>
+<pre><code>git push opiddaily master
+</code></pre>
+<p>will deploy the master branch of solution opiddaily to AppHarbor as application OPIDDaily, accessible through the URL</p>
+<pre><code>https://opiddaily.apphb.com
+</code></pre>
+<p>If you reset your password at AppHarbor, the 'git push' command will no longer work from the Git BASH shell. You need to have Git prompt you for your
+new password. To do this on a Windows 10 machine, go to</p>
+<pre><code>Control Panel &gt; User Accounts &gt; Credential Manager &gt; Windows Credentials
+</code></pre>
+<p>and remove the AppHarbor entry under Generic Credentials. The next time you push, you will be prompted for your repository password.</p>
+<p>Application OPIDDaily is deployed using the free Canoe subscription level at AppHarbor. Under a Canoe subscription, the IIS application pool of
+application OPIDDaily has a 20 minute timeout, which forces OPIIDDaily to spin up its resources again after 20 minutes of idle time. This has
+not been a problem at Operation ID, because application OPIDDaily is in continuous use on the days Operation ID is open. However, the 20 minute
+timeout for the free Canoe version at AppHarbor would become a problem if OPIDDaily were extended to add features suitable for use by agencies that
+partner with Operation ID. These agencies would require that OPIDDaily be available on demand. On demand service would require the use of a paid
+subscription level at AppHarbor.</p>
+<p>The free Yocto version of SQL Server is used as an add-on to the OPIDDaily deployment. The Yocto version has a limit of 20MB of storage
+space, which is adequate for many days of usage by Operation ID. However, the database usage must be monitored to avoid exceeding the 20MB limit.
+See the Database Utilization section on the Database tab for how to do this. A paid subscription to a SQL Server at AppHarbor would alleviate this
+problem.</p>
+<h2 id="the-staging-and-training-versions-of-opiddaily">The Staging and Training Versions of OPIDDaily</h2>
+<p>A staging version of application OPIDDaily was created from a Visual Studio <strong>staging</strong> branch by creating an application called <strong>stagedaily</strong> at AppHarbor.
+DO NOT CREATE A SEPARATE REPOSITORY FOR STAGEDAILY AT GITHUB.</p>
+<p>The remote configured for stagedaily at AppHarbor is:</p>
+<pre><code>https://tmhsplb@appharbor.com/stagedaily.git
+</code></pre>
+<p>This remote is configured from a Windows Git BASH shell by the command</p>
+<pre><code>git remote add stagedaily https://tmhsplb@appharbor.com/stagedaily.git
+</code></pre>
+<p>After the remote is configured in the Git BASH shell, issuing the command</p>
+<pre><code>git push stagedaily staging
+</code></pre>
+<p>will deploy the staging branch of OPIDDaily to AppHarbor as application stagedaily, accessible through the URL</p>
+<pre><code>https://stagedaily.apphb.com
+</code></pre>
+<p>In the same way, a <strong>traindaily</strong> application at AppHarbor was created from a <strong>training</strong> branch in Visual Studio.</p>
+<h2 id="roslyn">Roslyn</h2>
+<p>On June 6, 2019 I ran into a problem when I first pushed my OPIDDaily solution from my laptop to its GitHub repository and tried to clone the resulting
+repository onto my desktop computer. When I tried to run the solution from my desktop it complained about missing part of the path /bin/roslyn/csc.exe.
+I found a fix that worked at StackOverflow</p>
+<pre><code> https://stackoverflow.com/questions/32780315/could-not-find-a-part-of-the-path-bin-roslyn-csc-exe
+</code></pre>
+<p>The problem is that the \bin\roslyn folder is missing. This folder contains csc.exe which is needed.</p>
+<p>There were many proposed fixes, but the one that looked easiest (score 205 points) to try was: clean solution
+and then rebuild. It worked!</p>
+<h2 id="deployment">Deployment</h2>
+<p>This section summarizes deployment to AppHarbor. Much of the information here can be found in the section on AppHarbor.</p>
+<p>There are three applications at AppHarbor: <strong>opiddaily</strong> ,<strong>stagedaily</strong> and <strong>traindaily</strong>. Application <strong>opiddaily</strong> is the deployment of the Visual Studio
+<strong>master</strong> branch of solution OPIDDaily. Application <strong>stagedaily</strong> is the deployment of the Visual Studio <strong>staging</strong> branch of solution OPIDDaily and
+application <strong>traindaily</strong> is the deployment of branch <strong>training</strong> in Visual Studio.</p>
+<p>After configuring the <strong>opiddaily remote</strong> the Visual Studio production branch can be deployed to AppHarbor by using
+the Git BASH Shell command</p>
+<pre><code>git push opiddaily master
+</code></pre>
+<p>AppHarbor will automatically deploy application OPIDDaily if the push results in a successful build. After AppHarbor finishes building and
+deploying the code, application <strong>opiddaily</strong> can be viewed at</p>
+<pre><code>https://opiddaily.apphb.com
+</code></pre>
+<p>After configuring the staging remote (see above) the Visual Studio staging branch can be deployed to AppHarbor by using the Git BASH Shell command</p>
+<pre><code>git push stagedaily staging
+</code></pre>
+<p>AppHarbor will not automatically deploy application <strong>stagedaily</strong> even if the build is successful. It is necessary to click on the Deploy button
+at AppHarbor to deploy a successful build of application <strong>stagedaily</strong>. This may be by design if application <strong>stagedaily</strong> is recognized as a GitHub
+branch of application OPIDDaily.</p>
+<p>After clicking the Deploy button at AppHarbor to deploy a successful build of application <strong>stagedaily</strong>, the application can be viewed at</p>
+<pre><code>https://stagedaily.apphb.com
+</code></pre>
+<p>After configuring the training remote (see above) the Visual Studio training branch can be deployed to AppHarbor by using the Git BASH Shell command</p>
+<pre><code>git push traindaily training
+</code></pre>
+<p>Again, the Deploy button must be clicked to actually deploy application <strong>traindaily</strong> and run it through the URL</p>
+<pre><code>https://traindaily.apphb.com
+</code></pre>
+<p>Although there are three applications at AppHarbor, there is only a single repository at GitHub. The name of this single repository is OPIDDaily. The
+repository is by default focused on the <strong>master</strong> branch of the codebase but can be switched to the <strong>staging</strong> branch or <strong>training</strong> branch by using the
+GitHub interface.</p>
+<h2 id="jqgrid">jqGrid</h2>
+<p>Almost every page of the application OPIDDaily features a grid produced by the jQuery jqGrid component. It was installed into the OPIDDaily project by
+using the Package Manager command:</p>
+<pre><code>PM&gt; Install-Package Trirand.jqGrid -Version 4.6.0
+</code></pre>
+<p>There is a collection of <a href="http://trirand.com/blog/jqgrid/jqgrid.html">jqGrid Demos</a> that was very helpful during the development of OPIDDaily. There is a section about the jqGrid on the Implementation tab.</p>
+<h2 id="elmah">ELMAH</h2>
+<p>Unhandled application errors are caught by ELMAH. Version 2.1.2 of Elamh.Mvc was installed in project OPIDDaily by using the Visual Studio NuGet package
+manager. By default, the ELMAH log can only be viewed on the server that hosts the application in which ELMAH is installed. To make the ELMAH log
+visible to a client remotely running the application, add</p>
+<pre><code>&lt;elmah&gt;
+   &lt;security allowRemoteAccess="1" /&gt;
+&lt;/elmah&gt;
+</code></pre>
+<p>to the <code>&lt;configuration&gt;</code> section of file Web.config.</p>
+<p>To see ELMAH in action, modify the URL in the browser address bar to, for example,</p>
+<pre><code>opiddaily.apphb.com/Admin/Foo
+</code></pre>
+<p>This will generate an unhandled error because the MVC routing system will not be able to resolve the URL. Then go to</p>
+<pre><code>opiddaily.apphb.com/elmah.axd
+</code></pre>
+<p>to see that this error has been caught by ELMAH. On the localhost use</p>
+<pre><code>localhost/opiddaily/elmah.axd
+</code></pre>
+<p>to see the list of ELMAH errors.</p>
+<p>Installation of the Elmah.Mvc package adds the necessary DLL's and makes the necessary changes to Web.config to configure ELMAH for use. By default
+ELMAH will write to a database table called ELMAH_Error. The DDL Script definition of this table is found in a
+<a href="https://elmah.github.io/downloads/">separate download</a>. Download the DDL Script for MS SQL Server from the referenced web page. The script is a .SQL
+file which may be executed as a query inside SSMS to create table ELMAH_Error and 3 stored procedures.</p>
+<p>The ELMAH log is configured by the connection string named <strong>OpidDailyConnectionString</strong> on Web.config. The <code>&lt;sytem.web&gt;</code> section of Web.config must configure</p>
+<pre><code>    &lt;httpHandlers&gt;
+      &lt;add verb=&quot;POST,GET,HEAD&quot; path=&quot;elmah.axd&quot; type=&quot;Elmah.ErrorLogPageFactory, Elmah&quot; /&gt;
+    &lt;/httpHandlers&gt;
+</code></pre>
+<p>and the <code>&lt;system.webServer&gt;</code> section must configure</p>
+<pre><code>     &lt;handlers&gt;
+       &lt;add name=&quot;Elmah&quot; verb=&quot;POST,GET,HEAD&quot; path=&quot;elmah.axd&quot; type=&quot;Elmah.ErrorLogPageFactory, Elmah&quot; /&gt;
+     &lt;/handlers&gt;
+</code></pre>
+<p>in order for ELMAH to log both on the local IIS and on the remote server at AppHarbor.</p>
+<h2 id="log4net">log4net</h2>
+<p>Application logging is handled by Version 2.0.8 of log4net by the Apache Software Foundation. Logging is used primarily for reporting of detected errors
+during application execution. But logging is also very useful when trying to understand the execution of the code. Normally Visual Studio breakpoints
+can be set in the code to interrupt execution and inspect the value of variables and parameters. But as the code grows larger it becomes increasingly
+difficult to run it in Visual Studio debug mode. It is, however, always easy to insert logging statements to report on the values of variables and
+parameters without interrupting execution.</p>
+<p>The log4net package was installed using the Visual Studio NuGet package manager. The application log for project OPIDDaily is maintained as a database
+table as described in <a href="https://logging.apache.org/log4net/release/config-examples.html">this article</a> describing the AdoNetAppender for log4net. The
+article includes a script for creating table Log (renamed AppLog in application OPIDDaily). The script must be executed as a query in SSMS to create
+table AppLog in the database.</p>
+<p>Table AppLog is created by the following script:</p>
+<pre><code>CREATE TABLE[dbo].[AppLog] (
+  [Id][int] IDENTITY(1, 1) NOT NULL,
+  [Date][datetime] NOT NULL,
+  [Thread][varchar](255) NOT NULL,
+  [Level][varchar](50) NOT NULL,
+  [Logger][varchar](255) NOT NULL,
+  [Message][varchar](max) NOT NULL,
+  [Exception][varchar](max) NULL)
+</code></pre>
+<p>The application log is configured by the connection string named OpidDailyConnectionString on Web.config. The value of this connection string is
+overwritten when the application is deployed to AppHarbor. See the Connection String section of the Database tab.</p>
+<p>log4net requires some additional configuration in Web.config. In the <configSections> section add:</p>
+<pre><code>   &lt;section name=&quot;log4net&quot; type=&quot;log4net.Config.Log4NetConfigurationSectionHandler, log4net&quot; /&gt;
+</code></pre>
+<p>After the <configSections> section add the definition of the AdoNetAppender:</p>
+<pre><code>   &lt;log4net debug=&quot;true&quot;&gt;
+      &lt;appender name=&quot;AdoNetAppender&quot; type=&quot;log4net.Appender.AdoNetAppender&quot;&gt;
+        &lt;!--Change to 10 or MORE. This is critical, after 10 messages then log to database--&gt;
+        &lt;bufferSize value=&quot;1&quot; /&gt;
+        &lt;connectionType value=&quot;System.Data.SqlClient.SqlConnection, System.Data, Version=1.0.3300.0,
+              Culture=neutral, PublicKeyToken=b77a5c561934e089&quot; /&gt;
+        &lt;connectionStringName value=&quot;OpidDailyConnectionString&quot; /&gt;
+        &lt;commandText value=&quot;INSERT INTO AppLog ([Date],[Thread],[Level],[Logger],[Message],[Exception])
+               VALUES (@log_date, @thread, @log_level, @logger, @message, @exception)&quot; /&gt;
+        &lt;commandType value=&quot;Text&quot; /&gt;
+        &lt;!--&lt;commmandText value=&quot;dbo.procLog_Insert&quot;/&gt; &lt;commandType value=&quot;StoredProcedure&quot;/&gt;--&gt;
+        &lt;parameter&gt;
+          &lt;parameterName value=&quot;@log_date&quot; /&gt;
+          &lt;dbType value=&quot;DateTime&quot; /&gt;
+           &lt;layout type=&quot;log4net.Layout.RawTimeStampLayout&quot; /&gt;
+         &lt;/parameter&gt;
+         &lt;parameter&gt;
+           &lt;parameterName value=&quot;@thread&quot; /&gt;
+           &lt;dbType value=&quot;String&quot; /&gt;
+           &lt;size value=&quot;255&quot; /&gt;
+           &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
+              &lt;conversionPattern value=&quot;%thread&quot; /&gt;
+           &lt;/layout&gt;
+         &lt;/parameter&gt;
+         &lt;parameter&gt;
+            &lt;parameterName value=&quot;@log_level&quot; /&gt;
+            &lt;dbType value=&quot;String&quot; /&gt;
+            &lt;size value=&quot;50&quot; /&gt;
+            &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
+               &lt;conversionPattern value=&quot;%level&quot; /&gt;
+            &lt;/layout&gt;
+         &lt;/parameter&gt;
+         &lt;parameter&gt;
+            &lt;parameterName value=&quot;@logger&quot; /&gt;
+            &lt;dbType value=&quot;String&quot; /&gt;
+            &lt;size value=&quot;255&quot; /&gt;
+            &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
+               &lt;conversionPattern value=&quot;%logger&quot; /&gt;
+            &lt;/layout&gt;
+          &lt;/parameter&gt;
+          &lt;parameter&gt;
+             &lt;parameterName value=&quot;@message&quot; /&gt;
+               &lt;dbType value=&quot;String&quot; /&gt;
+               &lt;size value=&quot;4000&quot; /&gt;
+             &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
+                &lt;conversionPattern value=&quot;%message&quot; /&gt;
+             &lt;/layout&gt;
+           &lt;/parameter&gt;
+           &lt;parameter&gt;
+              &lt;parameterName value=&quot;@exception&quot; /&gt;
+              &lt;dbType value=&quot;String&quot; /&gt;
+              &lt;size value=&quot;2000&quot; /&gt;
+              &lt;layout type=&quot;log4net.Layout.ExceptionLayout&quot; /&gt;
+          &lt;/parameter&gt;
+      &lt;/appender&gt;
+      &lt;root&gt;
+         &lt;level value=&quot;DEBUG&quot; /&gt;
+            &lt;!-- &lt;appender-ref ref=&quot;RollingLogFileAppender&quot; /&gt; --&gt;
+         &lt;appender-ref ref=&quot;AdoNetAppender&quot; /&gt;
+      &lt;/root&gt;
+    &lt;/log4net&gt;
+</code></pre>
+<p>Notice that the configured value of the bufferSize is 1, despite the comment above the configuration to use a value of 10 or more. The value
+of 1 is chosen so that buffering of log statements will not occur; each log statement will be written to the log file at the time it is
+generated. This is important because OPIDDaily does not include many log statements. If the buffer size were set to 10 or more, then log
+statements would not appear in the log file until 10 log statements had accumulated. Setting the bufferSize to 1 is convenient for Log.Debug
+statements which may be needed to trace the behavior of the website at AppHarbor where the Visual Studio debugger is not available. It is
+also at times convenient when debugging in the desktop environment where the Visual Studio debugger is available.</p>
+<p>Finally, log4net must be initialized on file Global.asax.cs by including the configuration statement</p>
+<p>log4net.Config.XmlConfigurator.Configure();</p>
+<p>Without this statement nothing will work even if log4net is correctly configured on Web.config.</p>
+<h2 id="mkdocs">MkDocs</h2>
+<p>This document was created using MkDocs as was the <a href="http://www.mkdocs.org/">MkDocs website</a> itself. MkDocs
+requires python and was installed following the guide
+on <a href="https://www.sitepoint.com/building-product-documentation-mkdocs/">this page</a>. This guide is useful for setting up the environment; however,
+the syntax for the file mkdocs.yml has changed from that described in the guide. The new syntax can be found in the User Guide section of
+<a href="https://www.mkdocs.org/user-guide/writing-your-docs/#configure-pages-and-navigation">this document</a>.</p>
+<p>An MkDocs document is a static website and can be hosted by any service that supports static sites. This MkDocs
+document is hosted by
+<a href="https://pages.github.com/">GitHub Pages</a>. The <a href="http://atom.io/">Atom</a> open source text editor was used to
+develop the document on the desktop.
+An MkDocs document uses HTML Markdown for a desktop development version of a document. GitHub provides a
+<a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">cheatsheet for Markdown syntax</a>.</p>
+<p>MkDocs provides a built-in preview server. To start this server, open a BASH Shell on the folder containing the
+mkdoc.yml file of the project and execute</p>
+<pre><code>mkdocs serve
+</code></pre>
+<p>Then go to</p>
+<pre><code>http://127.0.0.1:8000
+</code></pre>
+<p>in a desktop browser. Pages can be edited and saved while in preview mode. The changes will be reflected in the browser document.</p>
+<p>When it is time to publish a version of a document, in a Git BASH shell opened on the folder containing the mkdocs.yml file, issue the command</p>
+<pre><code>mkdocs build
+</code></pre>
+<p>to expand the Markdown version of the document into an HTML version in the /site folder. Then open the Git GUI on the
+folder containing the mkdocs.yml file and use the GUI to create a new Git repository on the local disk.</p>
+<p>Next at GitHub create repository opiddailydoc to hold the documentation. Then create a repository on the desktop
+machine
+to associate with the GitHub repository. Issue the following command in the folder containing the mkdocs.yml file:</p>
+<pre><code>git init
+</code></pre>
+<p>After this, in the folder containing the mkdocs.yml file, define a remote called origin for the document:</p>
+<pre><code>git remote add origin https://github.com/tmhsplb/opiddailydoc.git
+</code></pre>
+<p>This command references the GitHub repository opiddailydoc. The remote only needs to be defined once. It will be remembered by the
+Git BASH shell.</p>
+<p>In the shell issue the following commands:</p>
+<pre><code>git add -A
+
+git commit -a -m 'Initial commit'
+
+git push origin master
+</code></pre>
+<p>This will push the master branch of the document to the repository identified by the remote called origin. Then click on the Settings tab for the newly
+created repository and scroll down to the GitHub Pages section. Select the master branch source and click on the Save button.</p>
+<p>Finally, to view the published document go to:</p>
+<pre><code>https://tmhsplb.github.io/opiddailydoc/site
+</code></pre>
+<p>Unless a new file is added to file <code>mkdocs.yml</code>, subsequent edits only require the commands</p>
+<pre><code>mkdocs build
+
+git commit -a -m '&lt;Comment for new commit&gt;'
+
+git push origin master
+</code></pre>
+<p>to update repository opiddailydoc at GitHub.</p>
+<p>If a new file is added to <code>mkdocs.yml</code> then</p>
+<pre><code>git add -A
+</code></pre>
+<p>must be run before the <code>mkdocs build</code> command is run. This causes any new files to be added to the local git repository. In either case it may take
+several minutes before edits are available.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

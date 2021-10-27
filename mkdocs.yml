@@ -1,0 +1,10 @@
+site_name: OPIDDaily
+site_description: Documentation for OPIDDaily
+theme: mkdocs
+nav:
+ - Background: 'index.md'
+ - Infrastructure: 'Infrastructure.md'
+ - Database: 'Database.md'
+ - Implementation: 'Implementation.md'
+ - Checks: 'Checks.md'
+ 

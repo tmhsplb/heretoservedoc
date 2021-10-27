@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Checks - OPIDDaily</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">OPIDDaily</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Background</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../Infrastructure/" class="nav-link">Infrastructure</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../Database/" class="nav-link">Database</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../Implementation/" class="nav-link">Implementation</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">Checks</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../Implementation/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" class="nav-link disabled">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#checks" class="nav-link">Checks</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#the-opid-daily-report" class="nav-link">The OPID Daily Report</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-importme-spreadsheet" class="nav-link">The ImportMe Spreadsheet</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="checks">Checks</h1>
+<p>Application OPID Daily maintains 3 tables of check records that have been issued to clients. The tables, called <strong>RChecks</strong>,
+<strong>AncientChecks</strong> and <strong>PocketChecks</strong>, can be found on the database diagram of the Database tab. The name <strong>RChecks</strong> stands
+for recent checks. The <strong>RChecks</strong> table contains checks from the years 2018 - 2020. The name <strong>AncientChecks</strong> refers to the fact
+that this table contains older checks, specifically checks from the years 2016 - 2019. The two tables have exactly the same data fields
+and could in fact be represented by a single table. A single table was used initially, but as this table grew larger it
+became more difficult to update. So an implementation decision was made to split it into 2 tables. The codebase performs
+all check searches and CRUD operations with respect to both tables.</p>
+<p>Each check stored in the tables is referenced back to the Apricot database by its RecordID and InterviewRecordID data fields.
+The master table of checks is maintained by Apricot. The collection of checks that have been modified (either created or updated)
+in the Apricot database is periodically imported into OPID Daily. This happens by running the OPID Daily report in Apricot to
+create an Excel spreadsheet of checks, which is then imported into the OPID Daily application to update its database tables.</p>
+<p>The <strong>PocketChecks</strong> table was added in June 2020 to provide a means of entering check data directly into OPID Daily instead of having to wait for checks
+to be imported from Apricot. A pocket check is created when adding a new check to the visit history of an existing client or when adding a new check to an
+express client. Only users in role Interviewer or Back Office can create a pocket check. A pocket check is marked as active when it is first
+created and is marked inactive when a check with the same check number is imported from Apricot. Pocket checks enable a seamless transition to operations
+under OPID Daily alone. Once imports from Apricot are no longer performed the checks in the <strong>RChecks</strong> and <strong>AncientChecks</strong> tables will eventually be
+older than the data retention guidelines.</p>
+<p>The OPID Daily application also has its check tables updated by Excel spreadsheets generated by Quickbooks. An Excel spreadsheet
+coming from Quickbooks shows the disposition (either Cleared or Voided) of a check as recorded at the bank used by Operation ID. In
+addition to updating its own tables, application OPID Daily generates an Excel spreadsheet for importing into the Apricot database
+to keep this database in synch with the OPID Daily database.</p>
+<p>Keeping 2 databases in synch with each other is a cumbersome process. The Apricot database came first and it has been in use to
+support the same-day-service model of Operation ID for the past several years. However, now that application OPID Daily has become
+available, it is worth considering whether it should become the sole source of check data, eliminating the need to maintain the
+Apricot database for Operation ID. The <strong>PocketChecks</strong> table makes this possible.  If Operation ID would adopt a data retention policy
+that required only 5 years worth of check data, then the twice-in-a-lifetime service policy could be changed to a twice in 5 years policy
+which could easily by enforced by application OPID Daily. The Apricot database contains check dating back to the year 2013. Moving forward
+it will become less likely that a client from that year (or even years 2015 and 2016) will request service from Operation ID. At the end of 2020,
+5 full years of check data will be in the OPID Daily database and a twice-in-five-years policy could be enacted.</p>
+<h2 id="the-opid-daily-report">The OPID Daily Report</h2>
+<p>When a check for a client is issued by Quickbooks, the number of the check is stored in the record representing the client in the
+Apricot database. The check number is recorded based on the type of check, for example, a check for a Texas driver's license or a
+Texas birth certificate. This check information must be recorded in the OPID Daily database as well in order to keep the two in synch.
+For this purpose, it is necessary to periodically run the OPID Daily report in Apricot. This report takes a date as an input parameter
+and generates a spreadsheet of checks that have been modified since that date. Importing this spreadsheet into the OPID Daily application
+brings its database of checks into synch with the database of checks in Apricot. Only a user in the BackOffice role can import the
+OPID Daily report. The interface for importing the file is found under the Merge item of the BackOffice menubar.</p>
+<p>Each record in the spreadsheet contains a RecordID and InterviewRecordID used to reference the check back to the Apricot database. Unless
+a check updates a check in the <strong>AncientChecks</strong> table, it is imported into the <strong>RChecks</strong> table. Thus, the <strong>RChecks</strong> table contains checks from
+years other than 2018 - 2020. When application OPID Daily searches for a client check, it does so by using the client's last name together
+with the client's date of birth. This is not necessarily a unique pair of keys to search by; however, it has been unique in practice.
+The search is always conducted with respect to both tables <strong>RChecks</strong> and <strong>AncientChecks</strong>. The search may also return a check from the <strong>PocketChecks</strong>
+table.</p>
+<p>The need to run the OPID Daily report is caused by the need to keep 2 databases in synch with each other. As already mentioned, this need could be eliminated by enacting a data retention policy and providing a check recording interface in application
+OPID Daily.</p>
+<h2 id="the-importme-spreadsheet">The ImportMe Spreadsheet</h2>
+<p>Periodically, reports indicating the disposition of checks at the Operation ID bank become available by running Quickbook reports. For important
+reasons these reports must be edited by the Operation ID Finance Office before they can be processed. The result of editing is a pair of Excel
+spreadsheets indicating check numbers of checks that have been Voided by the bank and check numbers of checks that have been Cleared by the
+bank. Neither of the reports can be directly imported into the Apricot database. Each report must be processed in order to create a spreadsheet
+suitable for importing into Apricot for the purpose of updating its database.</p>
+<p>The processing of each Voided checks and Cleared checks is done by application OPID Daily. The number of a check provides a unique search key
+for locating a check in the OPID Daily database. When a check has been located by number, its disposition is updated in the OPID Daily database
+as either Voided or Cleared, depending on the imported spreadsheet that it belongs to. Processing a spreadsheet of Voided checks will generate a set of
+resolved voided checks, that is a set of checks that are now known to be voided. Similarly, processing a set of Cleared checks will generate a set of
+resolved Cleared checks, that is a set of checks that are now known to be cleared.</p>
+<p>Since each check stored in the OPID Daily database contains both a RecordID and an InterviewRecordID, these keys together with the check's number
+and new disposition can be used to update the check in the Apricot database. A spreadsheet of resolved checks called an ImportMe file is created
+by application OPID Daily to perform this updating. It is not quite a simple matter of using the indicated data keys to update a record in Apricot.
+This is because the record in Apricot contains all the check data for a given client in one record pointed to by the RecordID and InterviewRecordID
+data keys. Thus, if a birth certificate check for a client is resolved as voided, all the other checks issued for the client must be included in
+the record imported for the one resolved check. Otherwise, the import will overwrite other checks for the client with NULL values! This requires that
+application OPID Daily carefully construct an ImportMe spreadsheet so as not to lose data. In addition to resolving a single check for a client,
+OPID Daily must search its database to collect all other checks stored for the client in order to construct an import record that will not overwrite data.</p>
+<p>Updating the OPID Daily database via a spreadsheet of Voided checks or Cleared checks is easy. It can be performed only by a user in the BackOffice
+role. The interface for doing so is found under the Merge menu item of the BackOffice menubar. As described, updating the OPID Daily database
+has the side effect of creating a set of resolved checks. This set can be viewed in a table stored under the Resolved tab of the menubar. Resolved
+checks must be downloaded to create an ImportMe spreadsheet to import into Apricot.</p>
+<p>As already noted, this is a cumbersome process that could be eliminated by switching all Operation ID processing to application OPID Daily.  </p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

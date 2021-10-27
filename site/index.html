@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Documentation for OPIDDaily">
+        
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>OPIDDaily</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body class="homepage">
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">OPIDDaily</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem active">
+                                <a href="." class="nav-link">Background</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="Infrastructure/" class="nav-link">Infrastructure</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="Database/" class="nav-link">Database</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="Implementation/" class="nav-link">Implementation</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="Checks/" class="nav-link">Checks</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" class="nav-link disabled">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="Infrastructure/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#before-you-start" class="nav-link">Before You Start</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#background" class="nav-link">Background</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#the-opiddaily-website" class="nav-link">The OPIDDaily Website</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#remote-operation-id" class="nav-link">Remote Operation ID</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#service-history" class="nav-link">Service History</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#this-document" class="nav-link">This Document</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="before-you-start">Before You Start</h1>
+<p>Before you start reading this document you need to understand that it documents a system called OPIDDaily, which
+is deployed as a website called HereToServe. OPIDDaily was designed as a website to serve the needs of Operation
+ID, a part of Main Street ministries. However, the Gift Cards extension to OPIDDaily, which supports the distribution
+of gift cards to clients of Operation ID, is technically outside of the scope of identity services. For this reason
+the Here To Serve campaign of First Presbyterian Church of Houston (FPC) was engaged to administrate the Gift Cards
+extension. Operation ID was started by FPC many years ago and has become the flagship ministry of Main Street Ministries,
+also started by FPC. The partnership between FPC and Main Street ministries
+made possible by the HereToServe website brings these two organizations back together in a way that has been welcomed
+by each and is possiby the first of many such partnerships to come.</p>
+<h1 id="background">Background</h1>
+<p>Operation ID is a ministry that exists to serve the need of individuals who need to obtain identification documents to support their application for
+a variety of services from housing to job application. The ministry is volunteer driven and has been in place for over thirty years. During this time
+thousands of individuals have received help to support their identification needs. Help is provided in the form of vouchers that can be used to pay
+for services rendered by either the Texas Department of Public Safety for a Texas ID or by the Bureau of Vital Statistics of Texas or another state
+to acquire a certified copy of a birth certificate.  Over the years of Operation ID's existence various paper driven pipelines of client processing in
+providing identification services have been used. The currently existing pipeline consists of four stages which are executed sequentially.</p>
+<ul>
+<li><strong>Screening</strong></li>
+<li><strong>Check In</strong></li>
+<li><strong>Interviewing</strong></li>
+<li><strong>Back Office Voucher Writing</strong></li>
+</ul>
+<p>In the <strong>Screening</strong> stage, a client is greeted at the front desk by a volunteer who checks that the client's referral letter is valid and that the
+documents the client possesses support the services they are seeking. The referral letter is provided by the agency representing the client to Operation
+ID and this agency performs the first level of screening. If this first level of screening is done carefully, the <strong>Screening</strong> stage at Operation ID
+can proceed very quickly, allowing the client to proceed to the Check In stage. The referral letter must specify the services that a client is seeking
+at Operation ID.  </p>
+<p>In the <strong>Check In</strong> stage (also performed by a volunteer at the front desk) the client is entered into the Operation ID database if he/she is
+not already in the database. The database is maintained by the Apricot database driven application software provided by the vendor
+<a href="https://www.socialsolutions.com/">Social Solutions</a>. Apricot is used to capture a client's demographic data together with a history of a client's
+previous visits to Operation ID. The demographic data includes a client's name, date of birth and age (a calculated field based on date of birth). The
+demographic data also includes a link to a household table, if a client is part of a
+household being processed together.</p>
+<p>Apricot stores basic demographic data in a table it refers to as the Client Tracking table and stores client visits in a related table called the
+Client Tracking Document Folder. (In terms of database technology, the Client Tracking Document Folder is related to the Client Tracking table by
+a foreign key.) Operation ID makes use of the Client Tracking Document Folder to record services provided to a client during previous visits. Whenever
+a service is provided to a client (example: writing a check for a birth certificate), the service is recorded by date together with the number of
+any issued check. At a date after the date of service, the disposition of an issued check is recorded. Most often this disposition will be either
+Cleared, indicating that the check has been used by the client or Voided, indicating that the check is no longer valid.</p>
+<p>During the <strong>Check In</strong> stage at the front desk, a client's history of previous visits (if any) is manually copied onto a small slip of paper which is
+then stapled to the client's referral letter. Previous visits may make a client ineligible for a service being requested. Operation ID enforces
+a twice-in-a-lifetime policy for birth certificate or ID services. If a client's history of previous visits reveals that they have twice
+previously been issued checks for a birth certificate and both checks have been used, then the client is not eligible for another check for a
+birth certificate. Similarly, if a client has twice previously been issued checks for an ID (either a Texas ID or a Texas Driver's License) and both
+checks have been used, then they are not eligible for another check for an ID. If a client is ineligible for a requested service, then they are so
+informed at the front desk. A client ineligible for a requested service may appeal their ineligibility and may, at the discretion of Operation ID
+management, be granted an exception.</p>
+<p>Most clients are either first time clients (no previous visit history) or clients who have not yet exhausted eligibility for a requested service. In
+either case, such a client is ready for the <strong>Interviewing</strong> stage. A client ready to be interviewed may have to wait for a (volunteer) interviewer to
+become available. Clients are processed on a first-come-first-served basis and frequently have to wait for an available interviewer. When an interviewer
+picks up a waiting client, the client's requested services are reviewed and paperwork in support of these services is completed. If the client is
+representing themselves alone, the paperwork generation may go fairly quickly. If the client is requesting an out-of-state birth certificate, more time
+is required, because the paperwork required to acquire a certified birth certificate varies from state to state. If the client represents a household,
+then paperwork for each member of the household is required and this may slow down the interviewing process considerably. In any event, under the
+current client processing pipeline, all paperwork required is completed during the interviewing process before the back office can generate any voucher
+for a client.</p>
+<p>When paperwork filled out during the <strong>Interviewing</strong> stage is sent to the back office, the <strong>Back Office Voucher Writing</strong> stage may begin. This stage
+may not  begin immediately upon the delivery of the completed paperwork for a given client, because a backlog of previous clients may need to be
+processed first. When a client's paperwork is eventually processed by the back office, what remains to be done is straightforward. A voucher for each
+service requested by a client is first generated by use of Quickbooks (operated by a volunteer). Then the voucher number of each generated voucher is
+recorded in the Apricot database (by another volunteer) in the client's visit history. This record keeping step is what enables enforcement of the
+twice-in-a-lifetime service policy mentioned above. After vouchers have been generated and recorded, they are delivered to the client and the pipeline of
+client processing is completed.</p>
+<p>What has been described above may be referred to as the <strong>same-day-service model</strong> of client processing. An alternative model, Remote Operation ID, will
+be described in a section below. Remote Operation ID will be described as a virtual platform providing the same client services without the need for a
+client to appear at Operation ID.</p>
+<h2 id="the-opiddaily-website">The OPIDDaily Website</h2>
+<p>The OPIDDaily website was designed to partially automate the pipeline of client processing at Operation ID by allowing the back office production of
+vouchers to proceed in parallel with the interviewing of clients to generate paperwork supporting their needs. OPIDDaily takes advantage of the fact
+that a client's voucher needs are already known during the <strong>Screening</strong> and <strong>Check In</strong> stages. This allows the front desk volunteers to send the back
+office volunteers information which allows the <strong>Back Office Voucher Writing</strong> stage to begin, possibly even before the <strong>Interviewing</strong> Stage has
+started.</p>
+<p>In support of parallel processing using OPIDDaily a <strong>Service Ticket</strong> describing a client's previous visits (if any) together with the services the
+client is seeking is printed on a printer at the front desk by the front desk check in volunteer. It has been suggested that in straightforward
+cases this Service Ticket be sent directly to the back office so that back office volunteers could begin processing the service requested on
+the Service Ticket in advance of the <strong>Interviewing</strong> stage being completed. In effect, the Interviewing stage and the <strong>Back Office Voucher Writing</strong>
+stage would be run in parallel. This has the potential of delivering substantial time savings over the currently existing sequential pipeline. The
+<strong>Screening</strong> and <strong>Check In</strong> stages would require a small amount of additional time in order to generate the Service Ticket for a client, but this
+extra time would be more than compensated for by the ability to run the <strong>Interviewing</strong> and <strong>Back Office Voucher Writing</strong> stages in parallel.</p>
+<p>In practice, a Service Ticket is not issued for each client appearing at the front desk on a day of service. Instead, in order to keep the line moving,
+a Service Ticket is only generated for clients with a history of previous visits. Clients with no previous visits are quickly moved through the
+front desk after their name and date of birth have been recorded in the Apricot database. The Service Ticket generated for a client with a visit
+history is attached to the client's referral letter rather than being sent to the back office. This does not take advantage of the parallel
+processing mentioned above, but it has nevertheless proved to be valuable. A client's referral letter must contain the services the client
+is seeking. A Service Ticket for a client with previous history summarizes the requested services in a tabular format.</p>
+<h2 id="remote-operation-id">Remote Operation ID</h2>
+<p>In March 2020 Operation ID was shutdown due to the coronavirus pandemic. At the time of this writing (April 2020) Operation ID is still shut down
+and it is not known when it will reopen. When the shutdown began, work was begun on a simple extension of OPIDDaily that would allow for providing
+identification services remotely. Remote operation is the analog of the same-day-service model of identification services that have historically
+been provided by Operation ID by a virtual platform that allows case managers to submit service requests to Operation ID through the OPIDDaily website.
+The service request is an electronic replacement for the referral letter used in the same-day-service model described above.</p>
+<p>Under the same-day-service model, there is only a single logged in user, the <em>TicketMaster</em>. The TicketMaster is a volunteer who sits
+at the front desk and uses OPIDDaily to generate a Service Ticket for each client with a history of previous visits. In the remote operations model,
+case managers who work at Operation ID partner agencies login to the OPIDDaily website to submit service requests on behalf of their clients. The last
+step of generating a service request for a client is the printing and signing of the <em>Case Manager Voucher</em>. The Case Manager Voucher is a
+piece of paper describing a service request. It includes a disclaimer that makes the client aware that requested services may be denied
+because of previous visits to  Operation ID for the same services. The Case Manager Voucher must be signed by both the client and the case manager.
+The voucher will be retained by the case manager, who will later redeem it for checks covering the expenses of the requested services.</p>
+<p>A service request submitted by a case manager appears on a service requests dashboard monitored by an Operation ID employee. The dashboard is simply
+a list of service requests placed by case managers working at different agencies. When a new service request appears on the dashboard, its arrival is first
+acknowledged by checking a checkbox on the request. This acknowledgment
+will be seen by the case manager who placed the request, informing him/her that Operation ID is aware of the request. The service request will
+next be used to generate a Service Ticket which will be printed and added to a collection of outstanding Service Tickets. When Service Tickets
+representing enough clients have been accumulated, the status of each represented client will be changed to BackOffice, indicating that the
+service requests have been passed to the back office at Operation ID for processing. The respective case managers will see this change in
+status for their clients.</p>
+<p>Processing a Service Ticket in the back office is exactly the same process that takes place in the same-day-service model. It involves using Quickbooks to
+cut checks for services specified by a Service Ticket and recording the check numbers in the corresponding client database entry in the Apricot database.
+This processing will be handled by an Operation ID volunteer, as is done in the same-day-service model.</p>
+<p>Once the check(s) have been cut for a client, the Operation ID employee monitoring the dashboard changes the client's status to Done, indicating
+to the client's case manager that processing has completed and checks may be picked up at the Operation ID office. The checks will be released
+to a case manager as redemption of the corresponding Case Manager Voucher.</p>
+<p>The process of remote operations described above involves only the case manager and Operation ID personnel. A client works with his/her case manager
+to generate a service request and then waits for the checks to be picked up at Operation ID by the case manager. Unlike the same-day-service
+model, the client never appears at Operation ID. This will be especially important as long as the same-day-service operation remains shut down.</p>
+<p>The Remote Operation ID process clearly requires more time to complete than the same-day-service model. As a practical matter, a Case Manager Voucher
+will indicate a 30 day period of validity. This is actually a time limit on how long Operation ID is given to respond to the corresponding service request
+once it appears on the service requests dashboard. The dashboard list will be sorted in chronological order of service request expiration dates. A service
+request will automatically roll off the dashboard once its expiration date has passed.</p>
+<h2 id="service-history">Service History</h2>
+<p>A Service Ticket lists not only the services a client is requesting but also the services the client has received in prior visits (if any). Listing
+previous services rendered is made possible by including a table of previously issued checks in the OPIDDaily database. Each record in the table of
+checks contains a check number, the check purpose, the name of the client to whom the check was issued and the disposition of the check, whether it was
+Cleared by the bank, Voided by the bank or one of several dispositions private to Operation ID. A check record does not include who the payee of the
+check is or the amount of the check. The check is referenced to the Apricot database simply by its unique number, not by the name of the client to whom
+the check was given.</p>
+<p>Periodically a pair of back office reports is processed by OPIDDaily to update its table of checks with the bank declared disposition of checks. These
+reports are generated by Quickbooks. One report lists check numbers of Cleared checks and the other report lists check numbers of Voided checks. This
+updating of the OPIDDaily table of checks implies that check numbers are recorded in the OPIDDaily database before their dispositions are known. This is
+indeed the case. To effect this, a report is periodically exported from the Apricot database and processed by OPIDDaily to import issued check into the
+OPIDDaily table of checks.</p>
+<p>By consulting the table of checks in the OPIDDaily database, it is possible to produce a service history for a client. A client with a service
+history is referred to as an Existing Client and a client with no previous service history is referred to as an Express Client. The term
+express client was chosen to imply that such a client's service request would be both easier and faster to process in the historic same-day-service
+model. As explained above, in practice a Service Ticket for an Express Client is not generated. In the remote operation model, a Service Ticket
+will be generated at Operation ID for both Existing Clients and Express Clients. Since there will be no referral letter under this model, the
+Service Ticket will be the only means of specifying requested services.</p>
+<p>Frequently a client will return to Operation ID requesting service before the disposition of a check previously issued to the client is known. In such a case,
+a back office volunteer will need to consult a Quickbooks ledger to determine the check's disposition. If the disposition can be determined,
+it may affect the service request by the client. In the same-day-service model, a client may need to be informed the he/she is not eligible for a requested
+service, because they have exhausted their twice-in-a-lifetime eligibility. This is sometimes a difficult conversation, especially if the client has endured
+a long line only to learn they are not eligible for the service they are requesting. In the remote operation model, Operation ID will convey ineligibility through
+the OPIDDaily website to a client's case manager. The case manager will then need to remind the client of the disclaimer about potential service denial that the
+client was made aware of when they signed their Case Manager Voucher.</p>
+<h2 id="this-document">This Document</h2>
+<p>OPIDDaily is available as a password protected website to registered users. This document describes the design and implementation of OPIDDaily.
+The Infrastructure tab describes how project OPIDDaily is maintained on a desktop host and how it is deployed to the .NET hosting service AppHarbor.
+The Database tab describes how the OPIDDaily database is managed on the desktop and at AppHarbor. The Implementation tab provides some details
+concerning the implementation of OPIDDaily.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
+        <script src="search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
+
+<!--
+MkDocs version : 1.2.3
+Build Date UTC : 2021-10-27 23:14:41.445538+00:00
+-->
