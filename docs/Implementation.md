@@ -139,11 +139,11 @@ UsersController.Index is the entry point for an authenticated user. The role an 
 redirected to from this entry point.
 
 ## jqGrid
-The entire implementation of application OPIDDaily is structured around instances of jqGrid appearing in MVC Views.
-Instructions for installng jqGrid are given on the Infrastructure tab.
+The entire implementation of application OPIDDaily is structured around instances of jqGrid appearing in MVC
+Views. Instructions for installng jqGrid are given on the Infrastructure tab.
 
-Each jqGrid is initially populatedby a call to an MVC action made through the url property of the grid. For example, the
-clientsGrid on view FrontDesk/Clients.cshtml is initially populated by the call
+Each jqGrid is initially populated by a call to an MVC action made through the url property of the grid. For
+example, the clientsGrid on view FrontDesk/Clients.cshtml is initially populated by the call
 
     "@Url.Action("GetClients", "FrontDesk")"
 
@@ -154,6 +154,9 @@ Each instance of a jqGrid defines a *pager*, which defines the CRUD operations s
 implemented by an MVC action of the role controller associated with the grid.
 
 There is a collection of [jqGrid Demos](http://trirand.com/blog/jqgrid/jqgrid.html) that was very helpful during the development of OPIDDaily.
+
+A technique found on [this Stack Overflow page](https://stackoverflow.com/questions/875225/resize-jqgrid-when-browser-is-resized)
+is used to make each jqGrid expand to the size of the page that contains it.
 
 ## Dashboard
 The jqGrid used to represent the dashboard of service requests supports filtered server side searching. Performing filtered searches on

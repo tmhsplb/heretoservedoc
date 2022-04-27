@@ -114,20 +114,24 @@ includes a database which serves as the application database, so it is not neces
 desktop version.
 
 ## Database Diagram
-![Database Diagram](OpidDailyDB.png)
+![Database Diagram](HereToServe DB.png)
 
-The diagram was created by SSMS, copied to the clipboard (using the "Copy Diagram to Clipboard" command found on the freespace context menu) and then
-pasted into the Paint tool. Inside of Paint it is saved as a .PNG file. Version 18.0 of SSMS does not allow database diagrams to be created. Newer
-releases have restored this capability. But the diagram seen here was created by an earlier release of SSMS, which did have the ability to create
-database diagrams.
+The diagram was created by SSMS, copied to the clipboard (using the "Copy Diagram to Clipboard" command found on the freespace context menu) and then pasted into the Paint tool. Inside of Paint it is saved as a .PNG file.
 
-The main tables of application OPIDDaily are the tables **Clients**, **TextMsgs**, **RChecks** and **AncientChecks**. The table **Clients** stores
+The main tables of application OPIDDaily are the tables **Clients**, **TextMsgs**, **PocketChecks**, **RChecks** and **AncientChecks**. The table **Clients** stores
 clients, their service requests and their supporting documents. This is the reason that table **Clients** has so many data fields. Some of this data
 could have been factored out by the use of many-to-many relationship tables, but it was decided that a single table would be simpler. Notice that
 many of the data fields in table **Clients** are bit fields. As a result, a record in the table does not consume much database storage.
 
 The table **TextMsgs** is related to the **Clients** table by the foreign key Id as there is a one-to-many
 relationship between a client and the messages that have been written concerning the client.
+
+The **PocketChecks** table was added in June 2020 to provide a means of entering check data directly into OPID Daily instead of having to wait for checks
+to be imported from Apricot. A pocket check is created when adding a new check to the visit history of an existing client or when adding a new check to
+an express client. Only users in role Interviewer or Back Office can create a pocket check. A pocket check is marked as active when it is first
+created and is marked inactive when a check with the same check number is imported from Apricot. Pocket checks enable a seamless transition to operations
+under OPID Daily alone. Once imports from Apricot are no longer performed the checks in the **RChecks** and **AncientChecks** tables will eventually be
+older than the data retention guidelines.
 
 The table **RChecks** is used to store check data from Apricot. The RecordIID and InterviewRecordID  data fields identify a client in the Apricot
 database and a particular visit the client has made to Operation ID. The service history of a client consists of the checks that have been issued to the
@@ -140,13 +144,6 @@ It has exactly the same data fields as table **RChecks**. Originally table **RCh
 The table was built by adding one year's worth of checks at a time, which resulted in gateway timeouts at AppHarbor during update operations as the table
 grew larger. So the table was split up into 2 tables by years. Currently the **RChecks** table contains checks from the years 2018-2020 and the
 **AncientChecks** table contains checks from the years 2016 and 2017.
-
-The **PocketChecks** table was added in June 2020 to provide a means of entering check data directly into OPID Daily instead of having to wait for checks
-to be imported from Apricot. A pocket check is created when adding a new check to the visit history of an existing client or when adding a new check to
-an express client. Only users in role Interviewer or Back Office can create a pocket check. A pocket check is marked as active when it is first
-created and is marked inactive when a check with the same check number is imported from Apricot. Pocket checks enable a seamless transition to operations
-under OPID Daily alone. Once imports from Apricot are no longer performed the checks in the **RChecks** and **AncientChecks** tables will eventually be
-older than the data retention guidelines.
 
 There exist checks going back to the year 2013 when a Microsoft Access database was used to manage clients; however, the disposition of checks
 from these early years was not stored along with the check numbers in the Access database. These check numbers were migrated to the Apricot database as

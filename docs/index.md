@@ -8,7 +8,7 @@ the Here To Serve campaign of First Presbyterian Church of Houston (FPC) was eng
 extension. Operation ID was started by FPC many years ago and has become the flagship ministry of Main Street Ministries,
 also started by FPC. The partnership between FPC and Main Street ministries
 made possible by the HereToServe website brings these two organizations back together in a way that has been welcomed
-by each and is possiby the first of many such partnerships to come.
+by each and is possibly the first of many such partnerships to come.
 
 # Background
 Operation ID is a ministry that exists to serve the need of individuals who need to obtain identification documents to support their application for

@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Database - OPIDDaily</title>
+        <title>Database - HereToServe</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/font-awesome.min.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
@@ -23,7 +23,7 @@
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href="..">OPIDDaily</a>
+                <a class="navbar-brand" href="..">HereToServe</a>
                 <!-- Expander button -->
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
                     <span class="navbar-toggler-icon"></span>
@@ -232,17 +232,20 @@ restarting the SQL Server (SQLEXPRESS) service. If all else fails try restarting
 includes a database which serves as the application database, so it is not necessary to create the application database as was done above for the
 desktop version.</p>
 <h2 id="database-diagram">Database Diagram</h2>
-<p><img alt="Database Diagram" src="../OpidDailyDB.png" /></p>
-<p>The diagram was created by SSMS, copied to the clipboard (using the "Copy Diagram to Clipboard" command found on the freespace context menu) and then
-pasted into the Paint tool. Inside of Paint it is saved as a .PNG file. Version 18.0 of SSMS does not allow database diagrams to be created. Newer
-releases have restored this capability. But the diagram seen here was created by an earlier release of SSMS, which did have the ability to create
-database diagrams.</p>
-<p>The main tables of application OPIDDaily are the tables <strong>Clients</strong>, <strong>TextMsgs</strong>, <strong>RChecks</strong> and <strong>AncientChecks</strong>. The table <strong>Clients</strong> stores
+<p><img alt="Database Diagram" src="../HereToServe%20DB.png" /></p>
+<p>The diagram was created by SSMS, copied to the clipboard (using the "Copy Diagram to Clipboard" command found on the freespace context menu) and then pasted into the Paint tool. Inside of Paint it is saved as a .PNG file.</p>
+<p>The main tables of application OPIDDaily are the tables <strong>Clients</strong>, <strong>TextMsgs</strong>, <strong>PocketChecks</strong>, <strong>RChecks</strong> and <strong>AncientChecks</strong>. The table <strong>Clients</strong> stores
 clients, their service requests and their supporting documents. This is the reason that table <strong>Clients</strong> has so many data fields. Some of this data
 could have been factored out by the use of many-to-many relationship tables, but it was decided that a single table would be simpler. Notice that
 many of the data fields in table <strong>Clients</strong> are bit fields. As a result, a record in the table does not consume much database storage.</p>
 <p>The table <strong>TextMsgs</strong> is related to the <strong>Clients</strong> table by the foreign key Id as there is a one-to-many
 relationship between a client and the messages that have been written concerning the client.</p>
+<p>The <strong>PocketChecks</strong> table was added in June 2020 to provide a means of entering check data directly into OPID Daily instead of having to wait for checks
+to be imported from Apricot. A pocket check is created when adding a new check to the visit history of an existing client or when adding a new check to
+an express client. Only users in role Interviewer or Back Office can create a pocket check. A pocket check is marked as active when it is first
+created and is marked inactive when a check with the same check number is imported from Apricot. Pocket checks enable a seamless transition to operations
+under OPID Daily alone. Once imports from Apricot are no longer performed the checks in the <strong>RChecks</strong> and <strong>AncientChecks</strong> tables will eventually be
+older than the data retention guidelines.</p>
 <p>The table <strong>RChecks</strong> is used to store check data from Apricot. The RecordIID and InterviewRecordID  data fields identify a client in the Apricot
 database and a particular visit the client has made to Operation ID. The service history of a client consists of the checks that have been issued to the
 client. To retrieve the service history from the table <strong>RChecks</strong> the client is looked up by last name and DOB. This is not guaranteed to be a unique
@@ -253,12 +256,6 @@ It has exactly the same data fields as table <strong>RChecks</strong>. Originall
 The table was built by adding one year's worth of checks at a time, which resulted in gateway timeouts at AppHarbor during update operations as the table
 grew larger. So the table was split up into 2 tables by years. Currently the <strong>RChecks</strong> table contains checks from the years 2018-2020 and the
 <strong>AncientChecks</strong> table contains checks from the years 2016 and 2017.</p>
-<p>The <strong>PocketChecks</strong> table was added in June 2020 to provide a means of entering check data directly into OPID Daily instead of having to wait for checks
-to be imported from Apricot. A pocket check is created when adding a new check to the visit history of an existing client or when adding a new check to
-an express client. Only users in role Interviewer or Back Office can create a pocket check. A pocket check is marked as active when it is first
-created and is marked inactive when a check with the same check number is imported from Apricot. Pocket checks enable a seamless transition to operations
-under OPID Daily alone. Once imports from Apricot are no longer performed the checks in the <strong>RChecks</strong> and <strong>AncientChecks</strong> tables will eventually be
-older than the data retention guidelines.</p>
 <p>There exist checks going back to the year 2013 when a Microsoft Access database was used to manage clients; however, the disposition of checks
 from these early years was not stored along with the check numbers in the Access database. These check numbers were migrated to the Apricot database as
 part of a client's service history, but the check numbers from the years 2013-2015 were not entered into the OPIDDaily database because it was believed

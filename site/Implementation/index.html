@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Implementation - OPIDDaily</title>
+        <title>Implementation - HereToServe</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/font-awesome.min.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
@@ -23,7 +23,7 @@
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href="..">OPIDDaily</a>
+                <a class="navbar-brand" href="..">HereToServe</a>
                 <!-- Expander button -->
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
                     <span class="navbar-toggler-icon"></span>
@@ -310,10 +310,10 @@ Deriving role controllers from a shared controller is an extremely useful techni
 UsersController.Index is the entry point for an authenticated user. The role an authenticated user is in determines the method the user will be
 redirected to from this entry point.</p>
 <h2 id="jqgrid">jqGrid</h2>
-<p>The entire implementation of application OPIDDaily is structured around instances of jqGrid appearing in MVC Views.
-Instructions for installng jqGrid are given on the Infrastructure tab.</p>
-<p>Each jqGrid is initially populatedby a call to an MVC action made through the url property of the grid. For example, the
-clientsGrid on view FrontDesk/Clients.cshtml is initially populated by the call</p>
+<p>The entire implementation of application OPIDDaily is structured around instances of jqGrid appearing in MVC
+Views. Instructions for installng jqGrid are given on the Infrastructure tab.</p>
+<p>Each jqGrid is initially populated by a call to an MVC action made through the url property of the grid. For
+example, the clientsGrid on view FrontDesk/Clients.cshtml is initially populated by the call</p>
 <pre><code>"@Url.Action("GetClients", "FrontDesk")"
 </code></pre>
 <p>which is the value of the url argument to grid clientsGrid. (Method GetClients is found on the SharedController.) The clientsGrid is updated by
@@ -321,6 +321,8 @@ SingalR without requiring a page refresh! This enhances the interactivity of the
 <p>Each instance of a jqGrid defines a <em>pager</em>, which defines the CRUD operations supported by the grid. Each CRUD operation is
 implemented by an MVC action of the role controller associated with the grid.</p>
 <p>There is a collection of <a href="http://trirand.com/blog/jqgrid/jqgrid.html">jqGrid Demos</a> that was very helpful during the development of OPIDDaily.</p>
+<p>A technique found on <a href="https://stackoverflow.com/questions/875225/resize-jqgrid-when-browser-is-resized">this Stack Overflow page</a>
+is used to make each jqGrid expand to the size of the page that contains it.</p>
 <h2 id="dashboard">Dashboard</h2>
 <p>The jqGrid used to represent the dashboard of service requests supports filtered server side searching. Performing filtered searches on
 the server side is necessary in order to preserve pagination, which will be needed if there are more than 25 service requests active

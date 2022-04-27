@@ -1,5 +1,5 @@
-site_name: OPIDDaily
-site_description: Documentation for OPIDDaily
+site_name: HereToServe
+site_description: Documentation for HereToServe
 theme: mkdocs
 nav:
  - Background: 'index.md'
@@ -7,4 +7,3 @@ nav:
  - Database: 'Database.md'
  - Implementation: 'Implementation.md'
  - Checks: 'Checks.md'
- 

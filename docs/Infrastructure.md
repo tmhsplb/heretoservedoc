@@ -668,21 +668,21 @@ When it is time to publish a version of a document, in a Git BASH shell opened o
 
     mkdocs build
 
-to expand the Markdown version of the document into an HTML version in the /site folder. Then open the Git GUI on the
-folder containing the mkdocs.yml file and use the GUI to create a new Git repository on the local disk.
+to expand the Markdown version of the document into an HTML version in the /site folder.
 
-Next at GitHub create repository opiddailydoc to hold the documentation. Then create a repository on the desktop
-machine
-to associate with the GitHub repository. Issue the following command in the folder containing the mkdocs.yml file:
+Issue the following command in the folder containing the mkdocs.yml file:
 
     git init
 
+This creates a GitHub repository on the local disk.
+
+Next at GitHub create repository heretoservedoc to hold the documentation.  
+
 After this, in the folder containing the mkdocs.yml file, define a remote called origin for the document:
 
-    git remote add origin https://github.com/tmhsplb/opiddailydoc.git
+    git remote add origin https://github.com/tmhsplb/heretoservedoc.git
 
-This command references the GitHub repository opiddailydoc. The remote only needs to be defined once. It will be remembered by the
-Git BASH shell.
+This command references the GitHub repository heretoservedoc. The remote only needs to be defined once. It will be remembered by the Git BASH shell.
 
 In the shell issue the following commands:
 
@@ -692,12 +692,16 @@ In the shell issue the following commands:
 
     git push origin master
 
-This will push the master branch of the document to the repository identified by the remote called origin. Then click on the Settings tab for the newly
-created repository and scroll down to the GitHub Pages section. Select the master branch source and click on the Save button.
+This will push the master branch of the document on the local disk to remote the repository identified by the
+remote called origin. At GitHub click on the Settings tab for the newly
+created repository and scroll down to the GitHub Pages section. Select the master branch source and click on
+the Save button.
 
-Finally, to view the published document go to:
+Finally, to view the published document, wait for a few minutes and then go to:
 
     https://tmhsplb.github.io/opiddailydoc/site
+
+to see the document online.
 
 Unless a new file is added to file `mkdocs.yml`, subsequent edits only require the commands
 
@@ -713,5 +717,4 @@ If a new file is added to `mkdocs.yml` then
 
     git add -A
 
-must be run before the `mkdocs build` command is run. This causes any new files to be added to the local git repository. In either case it may take
-several minutes before edits are available.
+must be run before the `mkdocs build` command is run. This causes any new files to be added to the local git repository. In either case it may take several minutes before edits are available in the browser.
