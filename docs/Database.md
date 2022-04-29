@@ -114,7 +114,7 @@ includes a database which serves as the application database, so it is not neces
 desktop version.
 
 ## Database Diagram
-![Database Diagram](HereToServe DB.png)
+![Database Diagram](OpidDailyDB.png)
 
 The diagram was created by SSMS, copied to the clipboard (using the "Copy Diagram to Clipboard" command found on the freespace context menu) and then pasted into the Paint tool. Inside of Paint it is saved as a .PNG file.
 
