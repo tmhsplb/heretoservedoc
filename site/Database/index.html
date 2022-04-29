@@ -238,6 +238,14 @@ desktop version.</p>
 clients, their service requests and their supporting documents. This is the reason that table <strong>Clients</strong> has so many data fields. Some of this data
 could have been factored out by the use of many-to-many relationship tables, but it was decided that a single table would be simpler. Notice that
 many of the data fields in table <strong>Clients</strong> are bit fields. As a result, a record in the table does not consume much database storage.</p>
+<p>The dependents of a client (example: the children of a client) are also clients and are stored in the
+<strong>Clients</strong>  table as well. This is why the <strong>Clients</strong> table is seen pointing to itself in the database
+diagram. Since there is a one-to-many relationship between a client and his/her dependents, the implmentation
+that suggests itself is that dependents should be stored in a table related to the <strong>Clients</strong> table by a
+foreign key. But as noted, dependents are also clients and therfore share all the same data fields. The SQL
+SERVER database engine has made provision for this situation. Instead of a foreign key in a related table, a
+foreign key to the <strong>Clients</strong> table itself is used. The answer to
+<a href="https://stackoverflow.com/questions/29516342/fk-to-the-same-table-code-first-entity-framework">this stackoverflow question</a> describes how this provision is made use of in Entity Framework Code First.</p>
 <p>The table <strong>TextMsgs</strong> is related to the <strong>Clients</strong> table by the foreign key Id as there is a one-to-many
 relationship between a client and the messages that have been written concerning the client.</p>
 <p>The <strong>PocketChecks</strong> table was added in June 2020 to provide a means of entering check data directly into OPID Daily instead of having to wait for checks

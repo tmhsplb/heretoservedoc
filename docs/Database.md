@@ -123,6 +123,15 @@ clients, their service requests and their supporting documents. This is the reas
 could have been factored out by the use of many-to-many relationship tables, but it was decided that a single table would be simpler. Notice that
 many of the data fields in table **Clients** are bit fields. As a result, a record in the table does not consume much database storage.
 
+The dependents of a client (example: the children of a client) are also clients and are stored in the
+**Clients**  table as well. This is why the **Clients** table is seen pointing to itself in the database
+diagram. Since there is a one-to-many relationship between a client and his/her dependents, the implmentation
+that suggests itself is that dependents should be stored in a table related to the **Clients** table by a
+foreign key. But as noted, dependents are also clients and therfore share all the same data fields. The SQL
+SERVER database engine has made provision for this situation. Instead of a foreign key in a related table, a
+foreign key to the **Clients** table itself is used. The answer to
+[this stackoverflow question](https://stackoverflow.com/questions/29516342/fk-to-the-same-table-code-first-entity-framework) describes how this provision is made use of in Entity Framework Code First.
+
 The table **TextMsgs** is related to the **Clients** table by the foreign key Id as there is a one-to-many
 relationship between a client and the messages that have been written concerning the client.
 
