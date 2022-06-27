@@ -1,8 +1,8 @@
 # Checks
 Application OPID Daily maintains 3 tables of check records that have been issued to clients. The tables, called **RChecks**,
 **AncientChecks** and **PocketChecks**, can be found on the database diagram of the Database tab. The name **RChecks** stands
-for recent checks. The **RChecks** table contains checks from the years 2018 - 2020. The name **AncientChecks** refers to the fact
-that this table contains older checks, specifically checks from the years 2016 - 2019. The two tables have exactly the same data fields
+for recent checks. The **RChecks** table contains checks from the years 2019 - 2022. The name **AncientChecks** refers to the fact
+that this table contains older checks, specifically checks from the years 2017 - 2018. The two tables have exactly the same data fields
 and could in fact be represented by a single table. A single table was used initially, but as this table grew larger it
 became more difficult to update. So an implementation decision was made to split it into 2 tables. The codebase performs
 all check searches and CRUD operations with respect to both tables.

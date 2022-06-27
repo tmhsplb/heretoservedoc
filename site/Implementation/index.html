@@ -208,7 +208,7 @@ The technique for placing the Register and Login links at the right of the menub
 <a href="https://stackoverflow.com/questions/41513463/bootstrap-align-navbar-items-to-the-right">this StackOverflow page</a>.</p>
 <h2 id="architecture">Architecture</h2>
 <p>Application OPIDDaily uses the well-defined architecture of an MVC application. The presentation layer is defined by the collection of controllers
-and corresponding views. Controllers make calls to the data access layer to retrieve requested data from the database. The data access layer communicates
+and their views. Controllers make calls to the data access layer to retrieve requested data from the database. The data access layer communicates
 with the database using Entity Framework.</p>
 <h4 id="models">Models</h4>
 <p>The Models folder contains the models used by application OPIDDaily. Each model name with suffix ViewModel is a view model used to pass data from
@@ -246,7 +246,7 @@ OPIDDaily.</p>
 <h2 id="users">Users</h2>
 <p>OPIDDaily is a role-based system. Each registered user will be assigned a user role by the OPIDDaily administrator.
 The role that a user is assigned will determine the OPIDDaily features available to the user. A user's assigned role will depend upon
-wheterh thr user volunteers at the front desk, is a volunteer interviewer or is a back office volunteer. There will also be a SuperAdmin
+whether the user volunteers at the front desk, is a volunteer interviewer or is a back office volunteer. There will also be a SuperAdmin
 role. The single user in this role, the Superadmin, will have access to features necessary for the maintenance of application OPIDDaily.
 The credentials for this account will only be available to a select few individuals.</p>
 <h2 id="the-superadmin-user">The SuperAdmin User</h2>

@@ -113,6 +113,13 @@ The online version of OPIDDaily is hosted as an application at AppHarbor and it 
 includes a database which serves as the application database, so it is not necessary to create the application database as was done above for the
 desktop version.
 
+## First time Login
+When a new branch is deployed to AppHarbor, the first login to the branch must be the SuperAdmin, sa,
+using the configure password. Logging in as sa will cause the migrations to be run thus creating all
+necessary database tables.
+
+Then the initial Roles, Agencies and Users need to be populated by the SuperAdmin.
+
 ## Database Diagram
 ![Database Diagram](OpidDailyDB.png)
 
@@ -135,18 +142,18 @@ foreign key to the **Clients** table itself is used. The answer to
 The table **TextMsgs** is related to the **Clients** table by the foreign key Id as there is a one-to-many
 relationship between a client and the messages that have been written concerning the client.
 
-The **PocketChecks** table was added in June 2020 to provide a means of entering check data directly into OPID Daily instead of having to wait for checks
-to be imported from Apricot. A pocket check is created when adding a new check to the visit history of an existing client or when adding a new check to
-an express client. Only users in role Interviewer or Back Office can create a pocket check. A pocket check is marked as active when it is first
-created and is marked inactive when a check with the same check number is imported from Apricot. Pocket checks enable a seamless transition to operations
-under OPID Daily alone. Once imports from Apricot are no longer performed the checks in the **RChecks** and **AncientChecks** tables will eventually be
-older than the data retention guidelines.
+The **PocketChecks** table was added to store checks that have been issued through Quickbooks. When
+a check is issued by Quickbooks a period of time elapses before the disposition of the check is 
+reported by the bank. During this period of time an issued check is effectively in the pocket of a 
+client, hence the name *pocket check*.
+A pocket check is created for an issued check by adding the check to the visit history of a client.
+Only users in role Vetter, Interviewer or Back Office can create a pocket check. A user in role 
+CaseManager can see pocket checks issued for his/her clients.
 
-The table **RChecks** is used to store check data from Apricot. The RecordIID and InterviewRecordID  data fields identify a client in the Apricot
-database and a particular visit the client has made to Operation ID. The service history of a client consists of the checks that have been issued to the
-client. To retrieve the service history from the table **RChecks** the client is looked up by last name and DOB. This is not guaranteed to be a unique
-lookup, but it almost always is.
-
+When a pocket check is created, a corresponding check is created in table **RChecks**.
+A pocket check is removed from the **PocketChecks** table when its corresponding check in 
+table **RChecks** is resolved (either Cleared or Voided) by a bank report.
+  
 The name **RChecks** is short for **research checks**. The **RChecks** table was so named because checks whose disposition is unknown are said to be
 under research until their disposition is resolved. The **AncientChecks** table was added to relieve the overcrowding of the **RChecks** table.
 It has exactly the same data fields as table **RChecks**. Originally table **RChecks** contained all the checks that have been issued by Operation ID.
@@ -194,9 +201,38 @@ The Visual Studio project OPIDDaily has 2 data contexts called IdentityDb and Op
 Infrastructure tab.) The technique for establishing a single connection string over 2 data contexts is described in
 [Scott Allen's Pluralsight video](https://app.pluralsight.com/player?author=scott-allen&name=aspdotnet-mvc5-fundamentals-m6-ef6&mode=live&clip=1&course=aspdotnet-mvc5-fundamentals).
 
+## The First New Migration for HereToServe
+
+See [this article.](http://www.mortenanderson.net/code-first-migrations-for-entity-framework#:~:text=The%20add-migration%20command%20is%20one%20of%20the%20key,you%20need%20only%20to%20provide%20a%20migration%20name.)
+
+The HereToServe application is a deployment of the OPIDDaily application under the application name HereToServe
+at AppHarbor. The HereToSeve application extends the OPIDDaily application by the inclusion of a gift cards feature.
+When starting work on extending the OPIDDaily codebase to create the HereToServe application the new
+table **GiftCards** was added to the OPIDDaily codebase via the commands
+
+    PM> add-migration -ConfigurationTypeName OPIDDaily.DataContexts.OPIDDailyMigrations.Configuration "GiftCard"
+    PM> update-database -ConfigurationTypeName OPIDDaily.DataContexts.OPIDDailyMigrations.Configuration
+
+Running these two commands accomplished the following:
+
+*  added a migration called GiftCard to folder DataContexts\OPIDDailyMigrations
+*  updated the __MigrationHistory table
+*  added table GiftCards to the desktop HereToServe database,
+
+Migrations cannot be handled directly by EF Code First at AppHarbor. It is necessary
+to use the Package Manager console (PM>) inside Visual Studio to create a script file for the migration and then execute this
+script file in SSMS against the AppHarbor database. See the section Adding Migrations at AppHarbor via Script on the
+Database tab to see how this is done. Importantly, this script includes the migration record that will be inserted into the
+__MigrationHistory table at AppHarbor. There is no other way to do this! Failure to do this will create an error at AppHarbor
+which says  
+
+    The model backing the OpidDailyDB context has changed since the database was created.
+
+This is a fatal error reported by ELMAH.
+
 ## Adding migrations at AppHarbor via script
 To generate a script for the Up methods of the most recent migration(s), go back in the migration history to where the recent migrations start. For
-example, the migration preceding the migration GiftCard2 was the migration GiftCardInventory. Therefore, to get a script for migration ExpressClient, execute the
+example, the migration preceding the migration GiftCard2 was the migration GiftCardInventory. Therefore, to get a script for migration GiftCard2, execute the
 command
 
     update-database -ConfigurationTypeName OPIDDaily.DataContexts.OPIDDailyMigrations.Configuration -Script -SourceMigration:GiftCardInventory

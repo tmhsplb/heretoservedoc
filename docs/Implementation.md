@@ -16,7 +16,7 @@ The technique for placing the Register and Login links at the right of the menub
 
 ## Architecture
 Application OPIDDaily uses the well-defined architecture of an MVC application. The presentation layer is defined by the collection of controllers
-and corresponding views. Controllers make calls to the data access layer to retrieve requested data from the database. The data access layer communicates
+and their views. Controllers make calls to the data access layer to retrieve requested data from the database. The data access layer communicates
 with the database using Entity Framework.
 
 #### Models
@@ -60,7 +60,7 @@ OPIDDaily.
 ## Users
 OPIDDaily is a role-based system. Each registered user will be assigned a user role by the OPIDDaily administrator.
 The role that a user is assigned will determine the OPIDDaily features available to the user. A user's assigned role will depend upon
-wheterh thr user volunteers at the front desk, is a volunteer interviewer or is a back office volunteer. There will also be a SuperAdmin
+whether the user volunteers at the front desk, is a volunteer interviewer or is a back office volunteer. There will also be a SuperAdmin
 role. The single user in this role, the Superadmin, will have access to features necessary for the maintenance of application OPIDDaily.
 The credentials for this account will only be available to a select few individuals.
 

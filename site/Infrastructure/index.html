@@ -110,10 +110,6 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#the-first-new-migration-for-heretoserve" class="nav-link">The First New Migration for HereToServe</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
             <li class="nav-item" data-level="2"><a href="#configuring-iis" class="nav-link">Configuring IIS</a>
               <ul class="nav flex-column">
               </ul>
@@ -191,8 +187,8 @@ the following robots.txt file</p>
 </code></pre>
 <p>This directs all search engines to ignore the entire site.</p>
 <h2 id="visual-studio-project">Visual Studio Project</h2>
-<p>To check out application OPIDDaily from GitHub into Visual Studio 2019 (Community Edition), use the Visual
-Studio capability to clone the repository</p>
+<p>To check out application OPIDDaily from GitHub into Visual Studio 2022 (Community Edition), use the
+Visual Studio capability to clone the repository</p>
 <pre><code> https://tmhsplb@appharbor.com/heretoserve.git
 </code></pre>
 <p>into a local folder after being made a collaborator on the project. Being a collaborator is necessary in order to commit changes to the GitHub repository.</p>
@@ -284,9 +280,17 @@ this password should be changed in the deployed application as soon as possible.
 contains a Change Password button that can be used to change the sa password. (The Home page for users in each role also
 contains a Change Password button.)  </p>
 <h2 id="initializing-the-database-for-a-clean-build">Initializing the Database for a Clean Build</h2>
-<p>The Visual Studio project OPIDDaily is implemented using Version 6 of Enity Framework Code First. The project
-maintains 2 data contexts called IdentityDB and OpidDailyDB. The technique for establishing a
-single connection string over 2 data contexts is described in
+<p>The Visual Studio project OPIDDaily is implemented using Version 6 of Entity Framework Code First.
+It is important to note that Entity Framework Code First is not supported by Visual Studio 2022 as
+of June 2022. If a new database migration needs to be added it must be done through Visual Studio
+2019. This was discovered while adding the migration</p>
+<pre><code>202206152043536_WayBackMachine.cs
+</code></pre>
+<p>The instructions for adding a migration contained in this document did not work in VS 2022.
+So the migration was added using VS 2019. After this development was continued in VS 2022 and
+everything worked fine thereafter.</p>
+<p>The project maintains 2 data contexts called IdentityDB and OpidDailyDB. The technique for
+establishing a single connection string over 2 data contexts is described in
 <a href="https://app.pluralsight.com/player?author=scott-allen&amp;name=aspdotnet-mvc5-fundamentals-m6-ef6&amp;mode=live&amp;clip=1&amp;course=aspdotnet-mvc5-fundamentals">Scott Allen's Pluralsight video</a>.</p>
 <p>Following the video, supporting 2 data contexts in application OPIDDaily was enabled by some manual scaffolding in the
 codebase. This scaffolding in the Visual Studio project for OPIDDaily consisted of creating a folder called DataContexts with
@@ -349,7 +353,7 @@ add-migration will be empty!</p>
 <p>Run the Powershell command</p>
 <pre><code>  PM&gt; add-migration -ConfigurationTypeName OPIDDaily.DataContexts.OPIDDailyMigrations.Configuration "InitialDB"
 </code></pre>
-<p>to create the migration containing all pre-defined tables. After running the commannd, inspect the InitialDB migration in
+<p>to create the migration containing all pre-defined tables. After running the command, inspect the InitialDB migration in
 folder OPIDDailyMigrations to see that all pre-defined tables are present. If the migration does not look correct, simply
 delete it before running the update-database. After verifying correctness, run the command</p>
 <pre><code> PM&gt; update-database -ConfigurationTypeName OPIDDaily.DataContexts.OPIDDailyMigrations.Configuration
@@ -362,29 +366,6 @@ _MigrationHistory table.</p>
 <p>Once a migration has been applied to the database by running an update-database command, the code in the
 Down() method of the migration must be run to back the migration out of the database. Read more about this on
 the Database tab.</p>
-<h2 id="the-first-new-migration-for-heretoserve">The First New Migration for HereToServe</h2>
-<p>The HereToServe application is a deployment of the OPIDDaily application under the application name HereToServe
-at AppHarbor. The HereToSeve application extends the OPIDDaily application by the inclusion of a gift cards feature.
-When starting work on extending the OPIDDaily codebase to create the HereToServe application the new
-table <strong>GiftCards</strong> was added to the OPIDDaily codebase via the commands</p>
-<pre><code>PM&gt; add-migration -ConfigurationTypeName OPIDDaily.DataContexts.OPIDDailyMigrations.Configuration "GiftCard"
-PM&gt; update-database -ConfigurationTypeName OPIDDaily.DataContexts.OPIDDailyMigrations.Configuration
-</code></pre>
-<p>Running these two commands accomplished the following:</p>
-<ul>
-<li>added a migration called GiftCard to folder DataContexts\OPIDDailyMigrations</li>
-<li>updated the __MigrationHistory table</li>
-<li>added table GiftCards to the desktop HereToServe database,</li>
-</ul>
-<p>Migrations cannot be handled directly by EF Code First at AppHarbor. It is necessary
-to use the Package Manager console (PM&gt;) inside Visual Studio to create a script file for the migration and then execute this
-script file in SSMS against the AppHarbor database. See the section Adding Migrations at AppHarbor via Script on the
-Database tab to see how thisis done. Importantly, this script includes the migration record that will be inserted into the
-__MigrationHistory table at AppHarbor. There is no other way to do this! Failure to do this will create an error at AppHarbor
-which says  </p>
-<pre><code>The model backing the OpidDailyDB context has changed since the database was created.
-</code></pre>
-<p>This is a fatal error reported by ELMAH.</p>
 <h2 id="configuring-iis">Configuring IIS</h2>
 <p>Development of the OPIDDaily application was performed under IIS in the development (desktop) environment. This
 was done so that the development environment would match the deployment environment at AppHarbor as closely as possible.</p>
@@ -455,6 +436,35 @@ repository at github. This required removing the original remote for origin as f
 <p>After this, a new remote for origin was added:</p>
 <pre><code>git remote add origin https://github.com/tmhsplb/HereToServe.git
 </code></pre>
+<p>Use Visual Studio 2022 to create a new branch through the github interface in the lower 
+right corner of the VS window.  This was how, for example, the staging branch was created. Then
+switch to the newly created branch using the same interface.
+When it comes time to push this branch to GitHub DO NOT first create a receiving branch at GitHub through the GitHub interface. Instead use the VS interface
+to push to GitHub</p>
+<ul>
+<li>Select View &gt; Git Repository</li>
+<li>Select the branch to push by its name</li>
+<li>Select Push from the context menu</li>
+</ul>
+<p>This will create the new branch at GitHub. The same procedure will push any updates to a branchto GitHub.</p>
+<p>To push changes to the training branch to AppHarbor, issue the command</p>
+<pre><code> git push traintoserve training
+</code></pre>
+<p>from a Git Bash shell. </p>
+<p>There is also built in GitHub support for branch management in Visual Studio 2022.
+For example, to update the master branch after completing changes to the training branch</p>
+<ul>
+<li>Switch to the master branch</li>
+<li>Select View &gt; Git Repository</li>
+<li>Under remotes open the traintoserve remote</li>
+<li>From the context menu of training select Merge 'traintoserve/training' into 'master'</li>
+</ul>
+<p>This will update the master branch with the changes in the training branch. Then in a Git Bash shell
+run the command</p>
+<pre><code> git push heretoserve master
+</code></pre>
+<p>to deploy the master branch. There is nothing to commit first; the commit of the training branch
+is sufficient.</p>
 <p>The initial codebase was saved to github through the Sync command under the Team Explorer tab in Visual Studio. The initial Sync inherited
 all the changes made to the cloned copy of opiddaily but this is not a problem.</p>
 <h2 id="appharbor">AppHarbor</h2>
@@ -468,13 +478,13 @@ of the desktop application is defined by a repository called stagedaily.</p>
 <p>This remote is configured from a Windows Git BASH shell by the command</p>
 <pre><code>git remote add opiddaily https://tmhsplb@appharbor.com/opiddaily.git
 </code></pre>
-<p>After the remote is configured in the Git BASH shell, issuing the command</p>
+<p>After the remote is configured in the Git Bash shell, issuing the command</p>
 <pre><code>git push opiddaily master
 </code></pre>
 <p>will deploy the master branch of solution opiddaily to AppHarbor as application OPIDDaily, accessible through the URL</p>
 <pre><code>https://opiddaily.apphb.com
 </code></pre>
-<p>If you reset your password at AppHarbor, the 'git push' command will no longer work from the Git BASH shell. You need to have Git prompt you for your
+<p>If you reset your password at AppHarbor, the 'git push' command will no longer work from the Git Bash shell. You need to have Git prompt you for your
 new password. To do this on a Windows 10 machine, go to</p>
 <pre><code>Control Panel &gt; User Accounts &gt; Credential Manager &gt; Windows Credentials
 </code></pre>
@@ -690,7 +700,7 @@ the syntax for the file mkdocs.yml has changed from that described in the guide.
 <a href="https://www.mkdocs.org/user-guide/writing-your-docs/#configure-pages-and-navigation">this document</a>.</p>
 <p>An MkDocs document is a static website and can be hosted by any service that supports static sites. This MkDocs
 document is hosted by
-<a href="https://pages.github.com/">GitHub Pages</a>. The <a href="http://atom.io/">Atom</a> open source text editor was used to
+<a href="https://pages.github.com/">GitHub Pages</a>. The Visual Studio Code open source editor was used to
 develop the document on the desktop.
 An MkDocs document uses HTML Markdown for a desktop development version of a document. GitHub provides a
 <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">cheatsheet for Markdown syntax</a>.</p>
@@ -714,7 +724,7 @@ mkdoc.yml file of the project and execute</p>
 <p>After this, in the folder containing the mkdocs.yml file, define a remote called origin for the document:</p>
 <pre><code>git remote add origin https://github.com/tmhsplb/heretoservedoc.git
 </code></pre>
-<p>This command references the GitHub repository heretoservedoc. The remote only needs to be defined once. It will be remembered by the Git BASH shell.</p>
+<p>This command references the GitHub repository heretoservedoc. The remote only needs to be defined once. It will be remembered by the Git Bash shell.</p>
 <p>In the shell issue the following commands:</p>
 <pre><code>git add -A
 
@@ -722,10 +732,9 @@ git commit -a -m 'Initial commit'
 
 git push origin master
 </code></pre>
-<p>This will push the master branch of the document on the local disk to remote the repository identified by the
-remote called origin. At GitHub click on the Settings tab for the newly
-created repository and scroll down to the GitHub Pages section. Select the master branch source and click on
-the Save button.</p>
+<p>This will push the master branch of the document on the local disk to remote the repository identified by the remote called origin. At GitHub click on the Settings tab for the newly
+created repository and scroll down to the GitHub Pages section. Select the master branch source and 
+click on the Save button.</p>
 <p>Finally, to view the published document, wait for a few minutes and then go to:</p>
 <pre><code>https://tmhsplb.github.io/opiddailydoc/site
 </code></pre>
